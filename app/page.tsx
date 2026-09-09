@@ -139,9 +139,29 @@ export default function Page() {
       {cartOpen && <><button className="drawer-backdrop" aria-label="Cerrar carrito" onClick={() => setCartOpen(false)} /><aside className="cart-drawer" aria-label="Carrito de compras"><div className="cart-header"><div><p className="eyebrow">Tu selección</p><h2>Carrito <span>{cartCount}</span></h2></div><button className="close-cart" onClick={() => setCartOpen(false)} aria-label="Cerrar carrito"><X size={20} /></button></div>{cart.length === 0 ? <div className="cart-empty"><ShoppingBag size={30} /><p>Tu carrito está esperando algo especial.</p><a href="#tienda" onClick={() => setCartOpen(false)}>Explorar tienda</a></div> : <><div className="cart-lines">{cart.map((item) => <div className="cart-line" key={item.id}><div><strong>{item.name}</strong><small>{formatCOP(item.price)} c/u</small><div className="quantity"><button onClick={() => changeQuantity(item.id, -1)} aria-label={`Disminuir ${item.name}`}><Minus size={13} /></button><span>{item.quantity}</span><button onClick={() => changeQuantity(item.id, 1)} aria-label={`Aumentar ${item.name}`}><Plus size={13} /></button><button className="remove-line" onClick={() => removeFromCart(item.id)} aria-label={`Eliminar ${item.name}`}><Trash2 size={14} /></button></div></div><strong>{formatCOP(item.price * item.quantity)}</strong></div>)}</div><div className="cart-summary"><p className="cart-notice">Tu pedido se finaliza y confirma directamente a través de WhatsApp con atención personalizada.</p><label className="cart-field">Código de descuento<input value={discountCode} onChange={(event) => setDiscountCode(event.target.value)} placeholder="ZORROCAFETERO" /></label><div className="cart-totals"><div><span>Subtotal</span><strong>{formatCOP(cartSubtotal)}</strong></div>{discount > 0 && <div><span>Descuento (ZORROCAFETERO -10%)</span><strong>−{formatCOP(discount)}</strong></div>}<div className="final-total"><span>Total final</span><strong>{formatCOP(cartTotal)}</strong></div></div><label className="cart-field">Nombre completo<input required value={customerName} onChange={(event) => setCustomerName(event.target.value)} placeholder="Tu nombre" /></label><label className="cart-field">Dirección de entrega<input required value={customerAddress} onChange={(event) => setCustomerAddress(event.target.value)} placeholder="Medellín / Área Metropolitana" /></label><button className="dark-button cart-checkout" disabled={!customerName.trim() || !customerAddress.trim()} onClick={whatsapp}>Finalizar pedido por WhatsApp <ArrowUpRight size={16} /></button></div></>}</aside></>}
 
       <section id="inicio" className="hero-section">
-        <div className="hero-copy"><Image className="hero-fox" src="/spinta-isotipo.png" alt="Isotipo del zorro de SPINTA" width={170} height={170} priority /><p className="eyebrow">Café de especialidad · Colombia</p><h1>Manteniendo<br />tus sueños<br /><em>despiertos.</em></h1><p className="hero-description">Café para quienes encuentran belleza en el ritual, precisión en el detalle y una buena excusa para quedarse despiertos.</p><a className="text-link" href="#tienda">Explorar la tienda <ArrowDown size={16} /></a></div>
+        <div className="hero-bg-wrapper">
+          <Image
+            src="/hero-bg.jpg"
+            alt="Cafetales de especialidad SPINTA"
+            fill
+            priority
+            sizes="100vw"
+            className="hero-bg-image"
+          />
+          <div className="hero-overlay" />
+        </div>
+        <div className="hero-copy">
+          <Image className="hero-fox" src="/spinta-isotipo.png" alt="Isotipo del zorro de SPINTA" width={170} height={170} priority />
+          <p className="eyebrow hero-eyebrow">Café de especialidad · Colombia</p>
+          <h1 className="hero-title">Manteniendo<br />tus sueños<br /><em>despiertos.</em></h1>
+          <p className="hero-description">Café para quienes encuentran belleza en el ritual, precisión en el detalle y una buena excusa para quedarse despiertos.</p>
+          <a className="hero-cta-btn" href="#tienda">
+            <span>Explorar la tienda</span>
+            <ArrowDown size={15} />
+          </a>
+        </div>
         <div className="bag-stage" aria-label="Bolsa de café SPINTA flotando" style={{ transform: `translateY(${Math.min(scrollY * 0.16, 85)}px) rotate(${scrollY * 0.018 - 3}deg)` }}>
-          <div className="coffee-shadow" /><Image className="hero-product-image" src="/images/spinta-huila.png" alt="Bolsa de café SPINTA Huila" fill priority sizes="(max-width: 760px) 245px, 330px" />
+          <Image className="hero-product-image" src="/images/spinta-huila.png" alt="Bolsa de café SPINTA Huila" fill priority sizes="(max-width: 760px) 245px, 330px" />
         </div>
         <div className="hero-foot"><span>01 — 03</span><span className="scroll-note"><span className="line" /> Desliza para descubrir</span></div>
       </section>
