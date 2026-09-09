@@ -24,24 +24,9 @@ const products = [
 ]
 
 const articles = [
-  {
-    slug: 'que-hace-especial-a-un-cafe-de-especialidad',
-    category: 'Estándar SCA',
-    title: 'Qué hace especial a un café de especialidad',
-    text: 'Un café de especialidad no es solo una etiqueta; es el resultado de la precisión en cada etapa de la cadena. Para obtener esta categoría, el lote debe superar los 80 puntos en la escala de cata de la SCA (Specialty Coffee Association). Se distingue por su trazabilidad total (saber exactamente la finca, lote, variedad y altura), una cosecha 100% manual de granos en su punto óptimo de maduración y la ausencia total de defectos primarios. En taza, esto se traduce en notas limpias, acidez brillante, cuerpo estructurado y sabores complejos sin necesidad de azúcares añadidos.',
-  },
-  {
-    slug: 'procesos-del-cafe-lavado-honey-y-natural',
-    category: 'Beneficio',
-    title: 'Procesos del café: Lavado, Honey y Natural',
-    text: `El método de beneficio define drásticamente el sabor final en tu taza:\n1. Lavado: Se retira la pulpa y el mucílago antes de secar el grano. Produce una taza muy limpia, de acidez brillante, cuerpo ligero y alta claridad de notas.\n2. Honey: Se remueve la pulpa pero se deja parte del mucílago jugoso durante el secado. Aporta una dulzura acaramelada, cuerpo medio y acidez balanceada.\n3. Natural: El fruto se seca entero con la cáscara y la pulpa puestas. Genera perfiles intensos, frutales, altamente complejos, con cuerpo denso y notas vinosas o licorosas.`,
-  },
-  {
-    slug: 'la-evolucion-de-la-cultura-colombiana-del-cafe',
-    category: 'Cultura & Territorio',
-    title: 'La evolución de la cultura colombiana del café',
-    text: "Colombia ha sido históricamente reconocida por producir uno de los mejores cafés suaves del mundo, pero tradicionalmente los mejores lotes eran exportados. Hoy vivimos una revolución local: caficultores, tostadores y consumidores están redefiniendo la cultura del café en el país. Pasar de la 'pasilla' tradicional a consumir cafés de especialidad locales no solo nos conecta con el origen y el esfuerzo de la tierra, sino que nos permite disfrutar el verdadero estándar de calidad de nuestro propio territorio.",
-  },
+  { slug: 'ritmo-lento-v60', category: 'Métodos', title: 'El ritmo lento del V60', text: 'Una guía breve para encontrar claridad, dulzor y equilibrio en cada vertido.', body: 'El V60 recompensa la atención. Empieza con agua entre 92 y 96 °C, una molienda media y un vertido circular que mantenga el lecho de café uniformemente húmedo. La pausa inicial permite que el café libere sus aromas antes de continuar.\n\nMás que perseguir una receta perfecta, observa el ritmo: el sonido del agua, la velocidad del goteo y la fragancia que aparece en cada etapa.' },
+  { slug: 'el-origen-tambien-se-escucha', category: 'Cultura', title: 'El origen también se escucha', text: 'Historias de las montañas, las manos y las decisiones detrás de cada taza.', body: 'Cada origen tiene una voz. La altura, la variedad, el suelo y el trabajo de quienes cultivan transforman la semilla en una experiencia irrepetible. Probar café de especialidad es aprender a reconocer esas diferencias sin prisa.\n\nEn SPINTA seleccionamos lotes trazables para acercarte a las historias que viven detrás de cada etiqueta.' },
+  { slug: 'como-probar-cafe-en-casa', category: 'Notas', title: 'Cómo probar café en casa', text: 'Cinco sentidos, una taza y la curiosidad suficiente para descubrir algo nuevo.', body: 'Sirve una taza limpia y deja que se enfríe unos minutos. Primero huele el café, luego observa su textura y finalmente prueba pequeños sorbos. Busca dulzor, acidez, cuerpo y persistencia.\n\nNo necesitas palabras complicadas: una libreta y la curiosidad bastan para construir tu propio lenguaje del café.' },
 ]
 
 export default function Page() {
@@ -55,8 +40,6 @@ export default function Page() {
   const [comment, setComment] = useState('')
   const [comments, setComments] = useState<string[]>([])
   const [scrollY, setScrollY] = useState(0)
-  const [cartBumping, setCartBumping] = useState(false)
-  const [toastMessage, setToastMessage] = useState<string | null>(null)
 
   useEffect(() => {
     const onScroll = () => setScrollY(window.scrollY)
@@ -64,18 +47,9 @@ export default function Page() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  useEffect(() => {
-    if (!toastMessage) return
-    const timer = setTimeout(() => {
-      setToastMessage(null)
-    }, 2400)
-    return () => clearTimeout(timer)
-  }, [toastMessage])
-
   const cartCount = useMemo(() => cart.reduce((total, item) => total + item.quantity, 0), [cart])
   const cartSubtotal = useMemo(() => cart.reduce((total, item) => total + item.price * item.quantity, 0), [cart])
-  const isDiscountValid = discountCode.trim().toUpperCase() === 'ZORROCAFETERO'
-  const discount = isDiscountValid ? Math.round(cartSubtotal * 0.1) : 0
+  const discount = discountCode.trim().toUpperCase() === 'SPINTA10' ? Math.round(cartSubtotal * 0.1) : 0
   const cartTotal = cartSubtotal - discount
 
   const addToCart = (item: { id: string; name: string; price: number }) => {
@@ -84,9 +58,7 @@ export default function Page() {
       if (existing) return current.map((line) => line.id === item.id ? { ...line, quantity: line.quantity + 1 } : line)
       return [...current, { ...item, quantity: 1 }]
     })
-    setCartBumping(true)
-    setToastMessage('¡Agregado al carrito!')
-    setTimeout(() => setCartBumping(false), 450)
+    setCartOpen(true)
   }
 
   const addOriginToCart = () => addToCart({ id: `coffee-${origins[origin].id}`, name: `Bolsa de café · ${origins[origin].name}`, price: origins[origin].price })
@@ -97,8 +69,7 @@ export default function Page() {
   const whatsapp = () => {
     if (!customerName.trim() || !customerAddress.trim() || cart.length === 0) return
     const lines = cart.map((item) => `• ${item.name} x${item.quantity} — ${formatCOP(item.price * item.quantity)}`).join('%0A')
-    const discountLine = discount > 0 ? `%0ADescuento (ZORROCAFETERO -10%): -${formatCOP(discount)}` : ''
-    const message = `Hola SPINTA,%0A%0AQuiero hacer este pedido:%0A${lines}%0A%0ASubtotal: ${formatCOP(cartSubtotal)}${discountLine}%0ATotal: ${formatCOP(cartTotal)}%0A%0ANombre: ${encodeURIComponent(customerName.trim())}%0ADirección en Medellín / Área Metropolitana: ${encodeURIComponent(customerAddress.trim())}`
+    const message = `Hola SPINTA,%0A%0AQuiero hacer este pedido:%0A${lines}%0A%0ASubtotal: ${formatCOP(cartSubtotal)}%0ADescuento${discount ? ' (SPINTA10)' : ''}: -${formatCOP(discount)}%0ATotal: ${formatCOP(cartTotal)}%0A%0ANombre: ${encodeURIComponent(customerName.trim())}%0ADirección en Medellín / Área Metropolitana: ${encodeURIComponent(customerAddress.trim())}`
     window.open(`https://wa.me/573244122482?text=${message}`, '_blank', 'noopener,noreferrer')
   }
 
@@ -110,58 +81,20 @@ export default function Page() {
 
   return (
     <main className="min-h-screen overflow-hidden bg-background text-foreground">
-      {toastMessage && (
-        <div className="cart-toast" role="status" aria-live="polite">
-          <span className="cart-toast-icon"><Check size={12} strokeWidth={2.5} /></span>
-          <span>{toastMessage}</span>
-        </div>
-      )}
       <header className="site-header">
         <a className="brand" href="#inicio" aria-label="SPINTA Café inicio">SPINTA<span>·</span></a>
         <nav className="desktop-nav" aria-label="Navegación principal">
           <a href="#tienda">Tienda</a><a href="#academia">Academia</a><a href="#historia">Nuestra historia</a>
         </nav>
-        <div className="header-actions">
-          <button
-            className={`bag-button ${cartBumping ? 'bump' : ''}`}
-            onClick={() => setCartOpen(true)}
-            aria-label={`Ver carrito, ${cartCount} productos`}
-          >
-            <ShoppingBag size={18} strokeWidth={1.5} />
-            <span>{cartCount}</span>
-          </button>
-          <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}>
-            {menuOpen ? <X size={22} /> : <Menu size={22} />}
-          </button>
-        </div>
+        <div className="header-actions"><button className="bag-button" onClick={() => setCartOpen(true)} aria-label={`Ver carrito, ${cartCount} productos`}><ShoppingBag size={18} strokeWidth={1.5} /><span>{cartCount}</span></button><button className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}>{menuOpen ? <X size={22} /> : <Menu size={22} />}</button></div>
       </header>
       {menuOpen && <nav className="mobile-menu"><a href="#tienda" onClick={() => setMenuOpen(false)}>Tienda</a><a href="#academia" onClick={() => setMenuOpen(false)}>Academia</a><a href="#historia" onClick={() => setMenuOpen(false)}>Nuestra historia</a></nav>}
-      {cartOpen && <><button className="drawer-backdrop" aria-label="Cerrar carrito" onClick={() => setCartOpen(false)} /><aside className="cart-drawer" aria-label="Carrito de compras"><div className="cart-header"><div><p className="eyebrow">Tu selección</p><h2>Carrito <span>{cartCount}</span></h2></div><button className="close-cart" onClick={() => setCartOpen(false)} aria-label="Cerrar carrito"><X size={20} /></button></div>{cart.length === 0 ? <div className="cart-empty"><ShoppingBag size={30} /><p>Tu carrito está esperando algo especial.</p><a href="#tienda" onClick={() => setCartOpen(false)}>Explorar tienda</a></div> : <><div className="cart-lines">{cart.map((item) => <div className="cart-line" key={item.id}><div><strong>{item.name}</strong><small>{formatCOP(item.price)} c/u</small><div className="quantity"><button onClick={() => changeQuantity(item.id, -1)} aria-label={`Disminuir ${item.name}`}><Minus size={13} /></button><span>{item.quantity}</span><button onClick={() => changeQuantity(item.id, 1)} aria-label={`Aumentar ${item.name}`}><Plus size={13} /></button><button className="remove-line" onClick={() => removeFromCart(item.id)} aria-label={`Eliminar ${item.name}`}><Trash2 size={14} /></button></div></div><strong>{formatCOP(item.price * item.quantity)}</strong></div>)}</div><div className="cart-summary"><p className="cart-notice">Tu pedido se finaliza y confirma directamente a través de WhatsApp con atención personalizada.</p><label className="cart-field">Código de descuento<input value={discountCode} onChange={(event) => setDiscountCode(event.target.value)} placeholder="ZORROCAFETERO" /></label><div className="cart-totals"><div><span>Subtotal</span><strong>{formatCOP(cartSubtotal)}</strong></div>{discount > 0 && <div><span>Descuento (ZORROCAFETERO -10%)</span><strong>−{formatCOP(discount)}</strong></div>}<div className="final-total"><span>Total final</span><strong>{formatCOP(cartTotal)}</strong></div></div><label className="cart-field">Nombre completo<input required value={customerName} onChange={(event) => setCustomerName(event.target.value)} placeholder="Tu nombre" /></label><label className="cart-field">Dirección de entrega<input required value={customerAddress} onChange={(event) => setCustomerAddress(event.target.value)} placeholder="Medellín / Área Metropolitana" /></label><button className="dark-button cart-checkout" disabled={!customerName.trim() || !customerAddress.trim()} onClick={whatsapp}>Finalizar pedido por WhatsApp <ArrowUpRight size={16} /></button></div></>}</aside></>}
+      {cartOpen && <><button className="drawer-backdrop" aria-label="Cerrar carrito" onClick={() => setCartOpen(false)} /><aside className="cart-drawer" aria-label="Carrito de compras"><div className="cart-header"><div><p className="eyebrow">Tu selección</p><h2>Carrito <span>{cartCount}</span></h2></div><button className="close-cart" onClick={() => setCartOpen(false)} aria-label="Cerrar carrito"><X size={20} /></button></div>{cart.length === 0 ? <div className="cart-empty"><ShoppingBag size={30} /><p>Tu carrito está esperando algo especial.</p><a href="#tienda" onClick={() => setCartOpen(false)}>Explorar tienda</a></div> : <><div className="cart-lines">{cart.map((item) => <div className="cart-line" key={item.id}><div><strong>{item.name}</strong><small>{formatCOP(item.price)} c/u</small><div className="quantity"><button onClick={() => changeQuantity(item.id, -1)} aria-label={`Disminuir ${item.name}`}><Minus size={13} /></button><span>{item.quantity}</span><button onClick={() => changeQuantity(item.id, 1)} aria-label={`Aumentar ${item.name}`}><Plus size={13} /></button><button className="remove-line" onClick={() => removeFromCart(item.id)} aria-label={`Eliminar ${item.name}`}><Trash2 size={14} /></button></div></div><strong>{formatCOP(item.price * item.quantity)}</strong></div>)}</div><div className="cart-summary"><p className="cart-notice">Tu pedido se finaliza y confirma directamente a través de WhatsApp con atención personalizada.</p><label className="cart-field">Código de descuento<input value={discountCode} onChange={(event) => setDiscountCode(event.target.value)} placeholder="SPINTA10" /></label><div className="cart-totals"><div><span>Subtotal</span><strong>{formatCOP(cartSubtotal)}</strong></div><div><span>Descuento aplicado</span><strong>{discount ? `−${formatCOP(discount)}` : formatCOP(0)}</strong></div><div className="final-total"><span>Total final</span><strong>{formatCOP(cartTotal)}</strong></div></div><label className="cart-field">Nombre completo<input required value={customerName} onChange={(event) => setCustomerName(event.target.value)} placeholder="Tu nombre" /></label><label className="cart-field">Dirección de entrega<input required value={customerAddress} onChange={(event) => setCustomerAddress(event.target.value)} placeholder="Medellín / Área Metropolitana" /></label><button className="dark-button cart-checkout" disabled={!customerName.trim() || !customerAddress.trim()} onClick={whatsapp}>Finalizar pedido por WhatsApp <ArrowUpRight size={16} /></button></div></>}</aside></>}
 
       <section id="inicio" className="hero-section">
-        <div className="hero-bg-wrapper">
-          <Image
-            src="/hero-bg.jpg"
-            alt="Cafetales de especialidad SPINTA"
-            fill
-            priority
-            sizes="100vw"
-            className="hero-bg-image"
-          />
-          <div className="hero-overlay" />
-        </div>
-        <div className="hero-copy">
-          <Image className="hero-fox" src="/spinta-isotipo.png" alt="Isotipo del zorro de SPINTA" width={170} height={170} priority />
-          <p className="eyebrow hero-eyebrow">Café de especialidad · Colombia</p>
-          <h1 className="hero-title">Manteniendo<br />tus sueños<br /><em>despiertos.</em></h1>
-          <p className="hero-description">Café para quienes encuentran belleza en el ritual, precisión en el detalle y una buena excusa para quedarse despiertos.</p>
-          <a className="hero-cta-btn" href="#tienda">
-            <span>Explorar la tienda</span>
-            <ArrowDown size={15} />
-          </a>
-        </div>
+        <div className="hero-copy"><Image className="hero-fox" src="/spinta-isotipo.png" alt="Isotipo del zorro de SPINTA" width={170} height={170} priority /><p className="eyebrow">Café de especialidad · Colombia</p><h1>Manteniendo<br />tus sueños<br /><em>despiertos.</em></h1><p className="hero-description">Café para quienes encuentran belleza en el ritual, precisión en el detalle y una buena excusa para quedarse despiertos.</p><a className="text-link" href="#tienda">Explorar la tienda <ArrowDown size={16} /></a></div>
         <div className="bag-stage" aria-label="Bolsa de café SPINTA flotando" style={{ transform: `translateY(${Math.min(scrollY * 0.16, 85)}px) rotate(${scrollY * 0.018 - 3}deg)` }}>
-          <Image className="hero-product-image" src="/images/spinta-huila.png" alt="Bolsa de café SPINTA Huila" fill priority sizes="(max-width: 760px) 245px, 330px" />
+          <div className="coffee-shadow" /><Image className="hero-product-image" src="/images/spinta-huila.png" alt="Bolsa de café SPINTA Huila" fill priority sizes="(max-width: 760px) 245px, 330px" />
         </div>
         <div className="hero-foot"><span>01 — 03</span><span className="scroll-note"><span className="line" /> Desliza para descubrir</span></div>
       </section>
@@ -173,29 +106,7 @@ export default function Page() {
 
       <section id="historia" className="manifesto"><p className="eyebrow">Por qué SPINTA</p><blockquote>“Una taza no cambia el mundo.<br /><em>Pero puede cambiar tu mañana.”</em></blockquote><div className="manifesto-line" /><p>Trabajamos con productores que cuidan la tierra y tostamos cada lote con paciencia. Porque el buen café no necesita prisa.</p></section>
 
-      <section id="academia" className="academy-section section-shell">
-        <div className="section-heading">
-          <div>
-            <p className="eyebrow">La academia</p>
-            <h2>Aprende a<br /><em>saborear.</em></h2>
-          </div>
-          <a className="text-link" href="#comentarios">Comunidad y notas <ArrowUpRight size={16} /></a>
-        </div>
-        <div className="article-grid">
-          {articles.map((article, i) => (
-            <article className="article-card" key={article.title}>
-              <div className="article-card-header">
-                <div className={`article-number number-${i}`}>0{i + 1}</div>
-                <p className="eyebrow">{article.category}</p>
-                <h3>{article.title}</h3>
-              </div>
-              <p className="article-summary">{article.text}</p>
-              <a className="arrow-link" href={`/academia/${article.slug}`}>
-                Leer artículo <ArrowUpRight size={15} />
-              </a>
-            </article>
-          ))}
-        </div>
+      <section id="academia" className="academy-section section-shell"><div className="section-heading"><div><p className="eyebrow">La academia</p><h2>Aprende a<br /><em>saborear.</em></h2></div><a className="text-link" href="#comentarios">Ver todos los artículos <ArrowUpRight size={16} /></a></div><div className="article-grid">{articles.map((article, i) => <article className="article-card" key={article.title}><div className={`article-number number-${i}`}>0{i + 1}</div><p className="eyebrow">{article.category}</p><h3>{article.title}</h3><p>{article.text}</p><a className="arrow-link" href={`/academia/${article.slug}`}>Leer artículo <ArrowUpRight size={15} /></a></article>)}</div>
         <div id="comentarios" className="comment-box"><div><p className="eyebrow">Conversación abierta</p><h3>¿Qué estás preparando<br />hoy?</h3></div><div className="comment-form"><textarea value={comment} onChange={(e) => setComment(e.target.value)} placeholder="Comparte una nota, una pregunta o un ritual..." aria-label="Escribe un comentario" /><button onClick={addComment} aria-label="Publicar comentario"><Send size={17} /></button></div>{comments.length > 0 && <div className="comment-list">{comments.map((item, i) => <p key={`${item}-${i}`}><Check size={14} /> {item}</p>)}</div>}</div>
       </section>
 
