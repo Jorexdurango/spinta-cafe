@@ -873,3 +873,24 @@ button { color: inherit; font: inherit; cursor: pointer; font-family: var(--font
     justify-content: center;
   }
 }
+
+/* Badge de rotación mensual de orígenes */
+.rotation-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 61, 13, 0.08);
+  border: 1px solid rgba(255, 61, 13, 0.25);
+  color: #ff3d0d;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin-bottom: 16px;
+}
+
+.rotation-icon {
+  font-size: 12px;
+}

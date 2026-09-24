@@ -6,13 +6,13 @@ import { useParams } from 'next/navigation'
 
 const articles = {
   'que-hace-especial-a-un-cafe-de-especialidad': {
-    category: 'Estándar SCA',
+    category: 'Calidad & Origen',
     title: 'Qué hace especial a un café de especialidad',
-    intro: 'Un café de especialidad no es solo una etiqueta; es el resultado de la precisión en cada etapa de la cadena.',
+    intro: 'Un café de especialidad no es solo una etiqueta; es el resultado del cuidado y la precisión en cada etapa de la cadena.',
     body: [
-      'Para obtener esta categoría, el lote debe superar los 80 puntos en la escala de cata de la SCA (Specialty Coffee Association).',
-      'Se distingue por su trazabilidad total (saber exactamente la finca, lote, variedad y altura), una cosecha 100% manual de granos en su punto óptimo de maduración y la ausencia total de defectos primarios.',
-      'En taza, esto se traduce en notas limpias, acidez brillante, cuerpo estructurado y sabores complejos sin necesidad de azúcares añadidos.'
+      'Se distingue por su trazabilidad total (saber exactamente la finca, lote, variedad y altura de cultivo), una recolección manual de granos en su punto óptimo de maduración y la ausencia total de defectos.',
+      'En taza, esto se traduce en notas limpias, acidez brillante, cuerpo estructurado y sabores complejos sin necesidad de azúcares añadidos.',
+      'Cada lote representa el trabajo dedicado de caficultores que seleccionan cuidadosamente los mejores frutos para ofrecer una experiencia extraordinaria en cada taza.'
     ]
   },
   'procesos-del-cafe-lavado-honey-y-natural': {

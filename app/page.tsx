@@ -18,15 +18,66 @@ declare global {
 const formatCOP = (value: number) => `$COP ${new Intl.NumberFormat('es-CO').format(value)}`
 
 const origins = [
-  { id: 'verde', name: 'Verde', note: 'Chocolate · nuez · caramelo', price: 45000, color: 'sierra', image: '/images/spinta-sierra.png' },
-  { id: 'naranja', name: 'Naranja', note: 'Cítrico · panela · cacao', price: 48000, color: 'huila', image: '/images/spinta-huila.png' },
-  { id: 'amarillo', name: 'Amarillo', note: 'Floral · frutos rojos · miel', price: 52000, color: 'narino', image: '/images/spinta-narino.png' },
+  {
+    id: 'naranja',
+    colorName: 'Naranja',
+    category: 'Estándar',
+    tagline: 'Tu café de todos los días',
+    description: 'Perfiles clásicos, limpios y balanceados. Cafés de tradición lavada con notas dulces y acidez equilibrada, pensados para acompañar tu rutina diaria.',
+    price: 35000,
+    color: 'huila',
+    image: '/images/spinta-huila.png',
+  },
+  {
+    id: 'amarillo',
+    colorName: 'Amarillo',
+    category: 'Impulso',
+    tagline: 'Sabores y procesos diferenciados',
+    description: 'Cafés de especialidad con procesos trabajados (Natural, Honey y Lavados con fermentación). Notas frutales, aromáticas y complejas para llevar tu taza al siguiente nivel.',
+    price: 48000,
+    color: 'narino',
+    image: '/images/spinta-narino.png',
+  },
+  {
+    id: 'verde',
+    colorName: 'Verde',
+    category: 'Élite',
+    tagline: 'Varietales exóticos',
+    description: 'La máxima expresión de nuestra selección. Microlotes y varietales raros con perfiles aromáticos intensos y sabores únicos para paladares exigentes.',
+    price: 60000,
+    color: 'sierra',
+    image: '/images/spinta-sierra.png',
+  },
 ]
 
 const products = [
-  { id: 'porce', name: 'SPINTA Porce Blend', detail: '250 g · Antioquia', description: 'Chocolate, caramelo, mandarina y maracuyá. El combustible diario con carácter.', price: 35000, tag: 'Diario', image: '/images/spinta-huila.png' },
-  { id: 'impulso', name: 'SPINTA Impulso', detail: '250 g · Selección especial', description: 'Un perfil elegante y balanceado para sostener tu enfoque todos los días.', price: 48000, tag: 'Premium', image: '/images/spinta-narino.png' },
-  { id: 'elite', name: 'SPINTA Élite', detail: '250 g · Microlote de temporada', description: 'La cima de nuestra selección: complejo, dinámico y extraordinario.', price: 60000, tag: 'Exclusivo', image: '/images/spinta-sierra.png' },
+  {
+    id: 'estandar',
+    name: 'SPINTA Estándar',
+    detail: '250 g · Categoría Naranja',
+    description: 'Perfiles clásicos, limpios y balanceados. Tu café de todos los días.',
+    price: 35000,
+    tag: 'Estándar',
+    image: '/images/spinta-huila.png',
+  },
+  {
+    id: 'impulso',
+    name: 'SPINTA Impulso',
+    detail: '250 g · Categoría Amarilla',
+    description: 'Sabores y procesos diferenciados (Natural, Honey y fermentación).',
+    price: 48000,
+    tag: 'Impulso',
+    image: '/images/spinta-narino.png',
+  },
+  {
+    id: 'elite',
+    name: 'SPINTA Élite',
+    detail: '250 g · Categoría Verde',
+    description: 'Varietales exóticos y microlotes raros para paladares exigentes.',
+    price: 60000,
+    tag: 'Élite',
+    image: '/images/spinta-sierra.png',
+  },
   { id: 'press', name: 'Prensa francesa 350ml', detail: 'Vidrio borosilicato', description: 'Cuerpo generoso y extracción sin prisa.', price: 30000, tag: 'Accesorio', image: '/images/accessory-prensa.png' },
   { id: 'v60', name: 'V60 Hario', detail: 'Cerámica · Blanco mate', description: 'Control y claridad para empezar tu ritual.', price: 60000, tag: 'Accesorio', image: '/images/accessory-v60.png' },
   { id: 'filters', name: 'Filtros V60 x100und', detail: 'Papel de filtrado', description: 'Papel limpio para tazas brillantes.', price: 45000, tag: 'Accesorio', image: '/images/accessory-filters.png' },
@@ -37,9 +88,9 @@ const products = [
 const articles = [
   {
     slug: 'que-hace-especial-a-un-cafe-de-especialidad',
-    category: 'Estándar SCA',
+    category: 'Calidad & Origen',
     title: 'Qué hace especial a un café de especialidad',
-    text: 'Un café de especialidad no es solo una etiqueta; es el resultado de la precisión en cada etapa de la cadena. Para obtener esta categoría, el lote debe superar los 80 puntos en la escala de cata de la SCA (Specialty Coffee Association). Se distingue por su trazabilidad total (saber exactamente la finca, lote, variedad y altura), una cosecha 100% manual de granos en su punto óptimo de maduración y la ausencia total de defectos primarios. En taza, esto se traduce en notas limpias, acidez brillante, cuerpo estructurado y sabores complejos sin necesidad de azúcares añadidos.',
+    text: 'Un café de especialidad no es solo una etiqueta; es el resultado del cuidado y la precisión en cada etapa de la cadena. Se distingue por su trazabilidad total (saber exactamente la finca, lote, variedad y altura de cultivo), una recolección manual de granos en su punto óptimo de maduración y la ausencia de defectos. En taza, esto se traduce en notas limpias, acidez brillante, cuerpo estructurado y sabores complejos sin necesidad de azúcares añadidos.',
   },
   {
     slug: 'procesos-del-cafe-lavado-honey-y-natural',
@@ -476,7 +527,7 @@ export default function Page() {
     setTimeout(() => setCartBumping(false), 450)
   }
 
-  const addOriginToCart = () => addToCart({ id: `coffee-${origins[origin].id}`, name: `Bolsa de café · ${origins[origin].name}`, price: origins[origin].price })
+  const addOriginToCart = () => addToCart({ id: `coffee-${origins[origin].id}`, name: `Bolsa de café · ${origins[origin].category} (${origins[origin].colorName})`, price: origins[origin].price })
   const changeQuantity = (id: string, amount: number) => setCart((current) => current.map((line) => line.id === id ? { ...line, quantity: Math.max(0, line.quantity + amount) } : line).filter((line) => line.quantity > 0))
   const removeFromCart = (id: string) => setCart((current) => current.filter((line) => line.id !== id))
 
@@ -687,8 +738,57 @@ export default function Page() {
         </div>
       </section>
 
-      <section id="tienda" className="shop-section section-shell"><div className="section-heading"><div><p className="eyebrow">La tienda</p><h2>Herramientas para<br /><em>hacerlo tuyo.</em></h2></div><p className="section-intro">Objetos honestos para preparar café excepcional, todos los días.</p></div>
-        <div className="origin-feature"><div className={`origin-art ${origins[origin].color}`}><Image className="origin-product-image" src={origins[origin].image} alt={`Bolsa de café SPINTA ${origins[origin].name}`} fill sizes="(max-width: 760px) 100vw, 55vw" /></div><div className="origin-info"><p className="eyebrow">Bolsas de café · 250 g</p><h3>Un origen, <em>tres formas</em><br />de despertar.</h3><p className="muted">Tueste fresco, trazable y enviado desde nuestro tostador hasta tu puerta.</p><div className="origin-tabs">{origins.map((item, i) => <button key={item.name} className={origin === i ? 'active' : ''} onClick={() => setOrigin(i)}><span>0{i + 1}</span>{item.name}</button>)}</div><div className="origin-detail"><span>{origins[origin].note}</span><strong>{formatCOP(origins[origin].price)}</strong></div><div className="product-actions"><button className="dark-button" onClick={addOriginToCart}>Agregar al carrito <ShoppingBag size={16} /></button><button className="text-link" onClick={directWhatsApp}>Pedir por WhatsApp <ArrowUpRight size={16} /></button></div></div></div>
+      <section id="tienda" className="shop-section section-shell">
+        <div className="section-heading">
+          <div>
+            <div className="rotation-badge">
+              <span className="rotation-icon">🔄</span> Cosechas frescas con rotación mensual de orígenes y productores.
+            </div>
+            <p className="eyebrow">La tienda</p>
+            <h2>Herramientas para<br /><em>hacerlo tuyo.</em></h2>
+          </div>
+          <p className="section-intro">Objetos honestos para preparar café excepcional, todos los días.</p>
+        </div>
+
+        <div className="origin-feature">
+          <div className={`origin-art ${origins[origin].color}`}>
+            <Image
+              className="origin-product-image"
+              src={origins[origin].image}
+              alt={`Bolsa de café SPINTA ${origins[origin].category}`}
+              fill
+              sizes="(max-width: 760px) 100vw, 55vw"
+            />
+          </div>
+          <div className="origin-info">
+            <p className="eyebrow">Categoría {origins[origin].colorName} · 250 g</p>
+            <h3>Categoría {origins[origin].category}:<br /><em>{origins[origin].tagline}</em></h3>
+            <p className="muted">{origins[origin].description}</p>
+            <div className="origin-tabs">
+              {origins.map((item, i) => (
+                <button
+                  key={item.id}
+                  className={origin === i ? 'active' : ''}
+                  onClick={() => setOrigin(i)}
+                >
+                  <span>0{i + 1}</span>{item.colorName} — {item.category}
+                </button>
+              ))}
+            </div>
+            <div className="origin-detail">
+              <span>{origins[origin].tagline}</span>
+              <strong>{formatCOP(origins[origin].price)}</strong>
+            </div>
+            <div className="product-actions">
+              <button className="dark-button" onClick={addOriginToCart}>
+                Agregar al carrito <ShoppingBag size={16} />
+              </button>
+              <button className="text-link" onClick={directWhatsApp}>
+                Pedir por WhatsApp <ArrowUpRight size={16} />
+              </button>
+            </div>
+          </div>
+        </div>
         <div className="product-grid">{products.map((product) => <article className="product-card" key={product.name}><div className="product-art"><span>{product.tag}</span><Image className="catalog-product-image" src={product.image} alt={product.name} fill sizes="(max-width: 760px) 45vw, 240px" /></div><div className="product-meta"><div><h3>{product.name}</h3><p>{product.detail}</p><small>{product.description}</small></div><strong>{formatCOP(product.price)}</strong></div><button className="outline-button" onClick={() => addToCart(product)}>Agregar al carrito <ShoppingBag size={15} /></button><button className="product-whatsapp" onClick={directWhatsApp}>Pedir por WhatsApp <ArrowUpRight size={15} /></button></article>)}</div>
       </section>
 
