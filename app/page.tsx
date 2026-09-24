@@ -5,6 +5,16 @@ import Script from 'next/script'
 import { useEffect, useMemo, useState } from 'react'
 import { ArrowDown, ArrowUpRight, Check, Mail, MapPin, Menu, Minus, Plus, Send, ShoppingBag, Trash2, X } from 'lucide-react'
 
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      'behold-widget': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> & {
+        'feed-id'?: string
+      }
+    }
+  }
+}
+
 const formatCOP = (value: number) => `$COP ${new Intl.NumberFormat('es-CO').format(value)}`
 
 const origins = [
@@ -564,27 +574,15 @@ export default function Page() {
           </a>
         </div>
 
-        {/* Widget de Behold.so — conecta tu feed real de Instagram */}
-        {/* PASO: Ve a https://behold.so, conecta @spintacafe y pega tu Feed ID abajo */}
+        {/* Widget oficial de Behold.so conectado a @spintacafe */}
         <div className="ig-behold-wrapper">
-          <div id="behold-feed-placeholder" className="ig-setup-notice">
-            <div className="ig-setup-icon">📸</div>
-            <p className="ig-setup-title">Feed de Instagram</p>
-            <p className="ig-setup-text">Para activar el feed automático, conéctate en <strong>behold.so</strong>, enlaza <strong>@spintacafe</strong> y reemplaza este bloque con el código embed que te generan.</p>
-            <a href="https://behold.so" target="_blank" rel="noreferrer" className="dark-button" style={{marginTop: '20px', display:'inline-flex'}}>
-              Conectar en Behold.so <ArrowUpRight size={15} />
-            </a>
-          </div>
-          {/*
-            Una vez que tengas el Feed ID de Behold, reemplaza el bloque de arriba con:
-
-            <div id="REEMPLAZA_CON_TU_FEED_ID"></div>
-            <Script src="https://w.behold.so/widget.js" strategy="lazyOnload" id="behold-script" />
-
-            Ejemplo:
-            <div id="AbCdEfGhIjKlMn"></div>
-            <Script src="https://w.behold.so/widget.js" strategy="lazyOnload" id="behold-script" />
-          */}
+          <behold-widget feed-id="daGqkZub0pnB7gMxdtjh"></behold-widget>
+          <Script
+            id="behold-script"
+            src="https://w.behold.so/widget.js"
+            type="module"
+            strategy="afterInteractive"
+          />
         </div>
       </section>
 
