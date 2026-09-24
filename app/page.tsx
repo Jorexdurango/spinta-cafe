@@ -1,8 +1,9 @@
 'use client'
 
 import Image from 'next/image'
+import Script from 'next/script'
 import { useEffect, useMemo, useState } from 'react'
-import { ArrowDown, ArrowUpRight, Check, Menu, Minus, Plus, Send, ShoppingBag, Trash2, X } from 'lucide-react'
+import { ArrowDown, ArrowUpRight, Check, Mail, MapPin, Menu, Minus, Plus, Send, ShoppingBag, Trash2, X } from 'lucide-react'
 
 const formatCOP = (value: number) => `$COP ${new Intl.NumberFormat('es-CO').format(value)}`
 
@@ -119,7 +120,7 @@ export default function Page() {
       <header className="site-header">
         <a className="brand" href="#inicio" aria-label="SPINTA Café inicio">SPINTA<span>·</span></a>
         <nav className="desktop-nav" aria-label="Navegación principal">
-          <a href="#tienda">Tienda</a><a href="#academia">Academia</a><a href="#historia">Nuestra historia</a>
+          <a href="#tienda">Tienda</a><a href="#academia">Academia</a><a href="#historia">Nuestra historia</a><a href="#contacto">Contacto</a>
         </nav>
         <div className="header-actions">
           <button
@@ -135,7 +136,7 @@ export default function Page() {
           </button>
         </div>
       </header>
-      {menuOpen && <nav className="mobile-menu"><a href="#tienda" onClick={() => setMenuOpen(false)}>Tienda</a><a href="#academia" onClick={() => setMenuOpen(false)}>Academia</a><a href="#historia" onClick={() => setMenuOpen(false)}>Nuestra historia</a></nav>}
+      {menuOpen && <nav className="mobile-menu"><a href="#tienda" onClick={() => setMenuOpen(false)}>Tienda</a><a href="#academia" onClick={() => setMenuOpen(false)}>Academia</a><a href="#historia" onClick={() => setMenuOpen(false)}>Nuestra historia</a><a href="#contacto" onClick={() => setMenuOpen(false)}>Contacto</a></nav>}
       {cartOpen && <><button className="drawer-backdrop" aria-label="Cerrar carrito" onClick={() => setCartOpen(false)} /><aside className="cart-drawer" aria-label="Carrito de compras"><div className="cart-header"><div><p className="eyebrow">Tu selección</p><h2>Carrito <span>{cartCount}</span></h2></div><button className="close-cart" onClick={() => setCartOpen(false)} aria-label="Cerrar carrito"><X size={20} /></button></div>{cart.length === 0 ? <div className="cart-empty"><ShoppingBag size={30} /><p>Tu carrito está esperando algo especial.</p><a href="#tienda" onClick={() => setCartOpen(false)}>Explorar tienda</a></div> : <><div className="cart-lines">{cart.map((item) => <div className="cart-line" key={item.id}><div><strong>{item.name}</strong><small>{formatCOP(item.price)} c/u</small><div className="quantity"><button onClick={() => changeQuantity(item.id, -1)} aria-label={`Disminuir ${item.name}`}><Minus size={13} /></button><span>{item.quantity}</span><button onClick={() => changeQuantity(item.id, 1)} aria-label={`Aumentar ${item.name}`}><Plus size={13} /></button><button className="remove-line" onClick={() => removeFromCart(item.id)} aria-label={`Eliminar ${item.name}`}><Trash2 size={14} /></button></div></div><strong>{formatCOP(item.price * item.quantity)}</strong></div>)}</div><div className="cart-summary"><p className="cart-notice">Tu pedido se finaliza y confirma directamente a través de WhatsApp con atención personalizada.</p><label className="cart-field">Código de descuento<input value={discountCode} onChange={(event) => setDiscountCode(event.target.value)} placeholder="ZORROCAFETERO" /></label><div className="cart-totals"><div><span>Subtotal</span><strong>{formatCOP(cartSubtotal)}</strong></div>{discount > 0 && <div><span>Descuento (ZORROCAFETERO -10%)</span><strong>−{formatCOP(discount)}</strong></div>}<div className="final-total"><span>Total final</span><strong>{formatCOP(cartTotal)}</strong></div></div><label className="cart-field">Nombre completo<input required value={customerName} onChange={(event) => setCustomerName(event.target.value)} placeholder="Tu nombre" /></label><label className="cart-field">Dirección de entrega<input required value={customerAddress} onChange={(event) => setCustomerAddress(event.target.value)} placeholder="Medellín / Área Metropolitana" /></label><button className="dark-button cart-checkout" disabled={!customerName.trim() || !customerAddress.trim()} onClick={whatsapp}>Finalizar pedido por WhatsApp <ArrowUpRight size={16} /></button></div></>}</aside></>}
 
       <section id="inicio" className="hero-section">
@@ -199,7 +200,115 @@ export default function Page() {
         <div id="comentarios" className="comment-box"><div><p className="eyebrow">Conversación abierta</p><h3>¿Qué estás preparando<br />hoy?</h3></div><div className="comment-form"><textarea value={comment} onChange={(e) => setComment(e.target.value)} placeholder="Comparte una nota, una pregunta o un ritual..." aria-label="Escribe un comentario" /><button onClick={addComment} aria-label="Publicar comentario"><Send size={17} /></button></div>{comments.length > 0 && <div className="comment-list">{comments.map((item, i) => <p key={`${item}-${i}`}><Check size={14} /> {item}</p>)}</div>}</div>
       </section>
 
-      <footer><div className="footer-brand">SPINTA<span>·</span></div><p>Café de especialidad para días extraordinarios.</p><div className="footer-links"><a href="#tienda">Tienda</a><a href="#academia">Academia</a><a href="https://instagram.com" target="_blank" rel="noreferrer">Instagram</a></div><small>© 2026 SPINTA CAFÉ · Hecho en Colombia</small></footer>
+
+      {/* ── SECCIÓN CONTACTO & SERVICIOS DE BARRA ── */}
+      <section id="contacto" className="contact-section section-shell">
+        <div className="section-heading">
+          <div>
+            <p className="eyebrow">Servicios</p>
+            <h2>Tu evento merece<br /><em>un buen café.</em></h2>
+          </div>
+          <p className="section-intro">Barra de especialidad para eventos, oficinas y momentos que merecen más que café de máquina.</p>
+        </div>
+
+        <div className="contact-layout">
+          {/* Grid de imágenes de servicios */}
+          <div className="barra-grid">
+            {[
+              { label: 'Barra para eventos', sub: 'Bodas · Corporativos · Lanzamientos' },
+              { label: 'Café de oficina', sub: 'Suscripción mensual de especialidad' },
+              { label: 'Taller de barismo', sub: 'Experiencias educativas en tu espacio' },
+              { label: 'Pop-up SPINTA', sub: 'Tu marca, nuestro café' },
+              { label: 'Catas privadas', sub: 'Maridaje y exploración sensorial' },
+              { label: 'Equipos & accesorios', sub: 'Asesoría para montar tu barra' },
+            ].map((item) => (
+              <div className="barra-tile" key={item.label}>
+                <div className="barra-tile-img">
+                  <div className="barra-placeholder-icon">☕</div>
+                </div>
+                <div className="barra-tile-meta">
+                  <strong>{item.label}</strong>
+                  <span>{item.sub}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Panel de contacto */}
+          <div className="contact-panel">
+            <p className="eyebrow">Hablemos</p>
+            <h3>¿Listo para llevar <em>SPINTA</em> a tu espacio?</h3>
+            <p className="contact-desc">Cuéntanos qué tienes en mente. Diseñamos la experiencia de café perfecta para tu evento o negocio.</p>
+
+            <div className="contact-details">
+              <div className="contact-item">
+                <MapPin size={16} strokeWidth={1.8} />
+                <span>Medellín, Antioquia · Colombia</span>
+              </div>
+              <div className="contact-item">
+                <Mail size={16} strokeWidth={1.8} />
+                <a href="mailto:spintacafe@gmail.com">spintacafe@gmail.com</a>
+              </div>
+              <div className="contact-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                <a href="https://wa.me/573244122482?text=Hola%20SPINTA,%20quiero%20información%20sobre%20sus%20servicios%20de%20barra" target="_blank" rel="noreferrer">+57 324 412 2482</a>
+              </div>
+            </div>
+
+            <a
+              className="dark-button contact-cta"
+              href="https://wa.me/573244122482?text=Hola%20SPINTA,%20quiero%20cotizar%20un%20servicio%20de%20barra%20para%20mi%20evento"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Cotizar servicio de barra <ArrowUpRight size={16} />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ── SECCIÓN INSTAGRAM FEED ── */}
+      <section id="instagram" className="ig-section section-shell">
+        <div className="ig-header">
+          <div>
+            <p className="eyebrow">Instagram</p>
+            <h2>Síguenos en<br /><em>@spintacafe</em></h2>
+          </div>
+          <a
+            className="text-link"
+            href="https://instagram.com/spintacafe"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Ver perfil completo <ArrowUpRight size={16} />
+          </a>
+        </div>
+
+        {/* Widget de Behold.so — conecta tu feed real de Instagram */}
+        {/* PASO: Ve a https://behold.so, conecta @spintacafe y pega tu Feed ID abajo */}
+        <div className="ig-behold-wrapper">
+          <div id="behold-feed-placeholder" className="ig-setup-notice">
+            <div className="ig-setup-icon">📸</div>
+            <p className="ig-setup-title">Feed de Instagram</p>
+            <p className="ig-setup-text">Para activar el feed automático, conéctate en <strong>behold.so</strong>, enlaza <strong>@spintacafe</strong> y reemplaza este bloque con el código embed que te generan.</p>
+            <a href="https://behold.so" target="_blank" rel="noreferrer" className="dark-button" style={{marginTop: '20px', display:'inline-flex'}}>
+              Conectar en Behold.so <ArrowUpRight size={15} />
+            </a>
+          </div>
+          {/*
+            Una vez que tengas el Feed ID de Behold, reemplaza el bloque de arriba con:
+
+            <div id="REEMPLAZA_CON_TU_FEED_ID"></div>
+            <Script src="https://w.behold.so/widget.js" strategy="lazyOnload" id="behold-script" />
+
+            Ejemplo:
+            <div id="AbCdEfGhIjKlMn"></div>
+            <Script src="https://w.behold.so/widget.js" strategy="lazyOnload" id="behold-script" />
+          */}
+        </div>
+      </section>
+
+      <footer><div className="footer-brand">SPINTA<span>·</span></div><p>Café de especialidad para días extraordinarios.</p><div className="footer-links"><a href="#tienda">Tienda</a><a href="#academia">Academia</a><a href="#contacto">Contacto</a><a href="https://instagram.com/spintacafe" target="_blank" rel="noreferrer">@spintacafe</a></div><small>© 2026 SPINTA CAFÉ · Hecho en Colombia</small></footer>
     </main>
   )
 }

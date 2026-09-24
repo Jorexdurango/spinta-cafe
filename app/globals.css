@@ -331,5 +331,231 @@ button { color: inherit; font: inherit; cursor: pointer; font-family: var(--font
   }
 }
 
+/* ── SECCIÓN CONTACTO & SERVICIOS DE BARRA ── */
+.contact-section { background: #f0efea; }
 
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1.4fr 0.6fr;
+  gap: 60px;
+  align-items: start;
+}
+
+/* Grid de tarjetas de servicios */
+.barra-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.barra-tile {
+  background: #e8e2d7;
+  border-radius: 4px;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.barra-tile:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 32px rgba(23, 23, 21, 0.12);
+}
+
+.barra-tile-img {
+  height: 190px;
+  background: #d9d3c6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.barra-tile-img::after {
+  content: 'SPINTA';
+  position: absolute;
+  font-family: var(--font-logo);
+  font-size: 52px;
+  color: rgba(255,255,255,0.18);
+  letter-spacing: -0.05em;
+  font-style: italic;
+  font-weight: 800;
+  pointer-events: none;
+}
+
+.barra-placeholder-icon {
+  font-size: 36px;
+  opacity: 0.45;
+  position: relative;
+  z-index: 1;
+}
+
+.barra-tile-meta {
+  padding: 14px 16px 18px;
+}
+.barra-tile-meta strong {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.barra-tile-meta span {
+  font-size: 10.5px;
+  color: var(--muted-foreground);
+  font-family: var(--font-sans);
+}
+
+/* Panel de contacto */
+.contact-panel {
+  background: var(--foreground);
+  color: var(--background);
+  padding: clamp(28px, 5vw, 54px);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: sticky;
+  top: 90px;
+}
+
+.contact-panel .eyebrow {
+  color: var(--coffee) !important;
+}
+
+.contact-panel h3 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(30px, 3vw, 46px);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  margin: 0 0 20px;
+}
+
+.contact-panel h3 em {
+  color: var(--coffee);
+  font-style: italic;
+}
+
+.contact-desc {
+  font-size: 12.5px;
+  line-height: 1.65;
+  color: rgba(251, 251, 249, 0.65);
+  font-family: var(--font-sans);
+  margin: 0 0 28px;
+}
+
+.contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 22px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  margin-bottom: 28px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 12.5px;
+  color: rgba(251, 251, 249, 0.85);
+}
+.contact-item svg {
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+.contact-item a {
+  color: inherit;
+  transition: color 0.2s ease;
+}
+.contact-item a:hover {
+  color: var(--coffee);
+}
+
+.contact-cta {
+  align-self: stretch;
+  justify-content: center;
+  background: var(--coffee) !important;
+  border-color: var(--coffee) !important;
+  color: #ffffff !important;
+  padding: 14px 20px;
+}
+.contact-cta:hover {
+  background: #e63510 !important;
+  border-color: #e63510 !important;
+}
+
+/* ── SECCIÓN INSTAGRAM ── */
+.ig-section { background: var(--background); }
+
+.ig-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 30px;
+  margin-bottom: 50px;
+}
+
+.ig-behold-wrapper {
+  width: 100%;
+}
+
+/* Widget placeholder cuando Behold no está configurado aún */
+.ig-setup-notice {
+  border: 2px dashed var(--border);
+  border-radius: 4px;
+  padding: 60px 40px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background: #f7f6f2;
+}
+
+.ig-setup-icon {
+  font-size: 44px;
+  margin-bottom: 8px;
+}
+
+.ig-setup-title {
+  font-family: var(--font-serif);
+  font-size: 26px;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+
+.ig-setup-text {
+  font-size: 12.5px;
+  color: var(--muted-foreground);
+  font-family: var(--font-sans);
+  max-width: 400px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── RESPONSIVE CONTACTO / IG ── */
+@media (max-width: 760px) {
+  .contact-layout {
+    display: block;
+  }
+  .barra-grid {
+    grid-template-columns: repeat(2, 1fr);
+    margin-bottom: 30px;
+  }
+  .barra-tile-img {
+    height: 140px;
+  }
+  .contact-panel {
+    position: static;
+  }
+  .ig-header {
+    display: block;
+    margin-bottom: 30px;
+  }
+  .ig-header .text-link {
+    margin-top: 16px;
+  }
+  .ig-setup-notice {
+    padding: 40px 20px;
+  }
+}
 
