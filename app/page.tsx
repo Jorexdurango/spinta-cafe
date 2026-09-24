@@ -45,6 +45,217 @@ const articles = [
   },
 ]
 
+const phrases = [
+  // Sección 1: Estoicismo, Disciplina y Autodominio
+  "Ningún hombre es libre si no es dueño de sí mismo. — Epicteto",
+  "No es porque las cosas son difíciles que no nos atrevemos, es porque no nos atrevemos que son difíciles. — Séneca",
+  "La incomodidad es el precio de la admisión a una vida con significado.",
+  "Tenemos dos vidas: la segunda comienza cuando nos damos cuenta de que solo tenemos una. — Confucio",
+  "El obstáculo en el camino se convierte en el camino. — Marco Aurelio",
+  "Sufres más en tu imaginación que en la realidad. — Séneca",
+  "La disciplina es elegir entre lo que quieres ahora y lo que quieres más.",
+  "No pidas una carga ligera, pide una espalda fuerte.",
+  "Si quieres conquistar la ansiedad de la vida, vive en el momento, vive en la respiración.",
+  "La suerte es el residuo del diseño. — Branch Rickey",
+  "Un barco está seguro en el puerto, pero no es para eso que se construyen los barcos. — William S. Shedd",
+  "La vida se encoge o se expande en proporción a tu coraje. — Anaïs Nin",
+  "El hombre que mueve montañas empieza apartando piedrecitas. — Confucio",
+  "Lo que haces todos los días importa más que lo que haces de vez en cuando.",
+  "La excelencia no es un acto, es un hábito. — Aristóteles",
+  "Quien tiene un porqué para vivir puede soportar casi cualquier cómo. — Friedrich Nietzsche",
+  "No busques que las cosas pasen como tú quieres, sino quiere que las cosas pasen como pasan, y serás feliz. — Epicteto",
+  "El mejor guerrero no es el que triunfa siempre, sino el que vuelve sin miedo a la batalla.",
+  "Domínate a ti mismo y dominarás el mundo.",
+  "La libertad no es hacer lo que quieres, es no tener que hacer lo que no quieres. — Jean-Jacques Rousseau",
+  "Si estás libre de enemigos, el destino te ha olvidado. — Publilio Siro",
+  "Nada noble se crea de la noche a la mañana. — Epicteto",
+  "Aquel que teme sufrir, ya sufre por lo que teme. — Michel de Montaigne",
+  "El valor no es la ausencia de miedo, sino el juicio de que algo es más importante que el miedo. — Ambrose Redmoon",
+  "Cuanto mayor es la dificultad, mayor es la gloria en superarla. — Molière",
+  // Sección 2: Fuego Interno, Acción y Movimiento
+  "La acción es la llave fundamental de todo éxito. — Pablo Picasso",
+  "El futuro depende de lo que hagas hoy. — Mahatma Gandhi",
+  "No cuentes los días, haz que los días cuenten. — Muhammad Ali",
+  "La inacción genera duda y miedo. La acción genera confianza y coraje.",
+  "Si estás atravesando un infierno, sigue caminando. — Winston Churchill",
+  "El éxito es la suma de pequeños esfuerzos repetidos día tras día. — Robert Collier",
+  "No esperes. El tiempo nunca será el adecuado. — Napoleon Hill",
+  "Tu tiempo es limitado, no lo desperdicies viviendo la vida de otro. — Steve Jobs",
+  "La inspiración existe, pero tiene que encontrarte trabajando. — Pablo Picasso",
+  "Haz lo que puedas, con lo que tengas, donde estés. — Theodore Roosevelt",
+  "La duda mata más sueños que el fracaso. — Suzy Kassem",
+  "Una vez que tomas una decisión, el universo conspira para hacerla realidad. — Ralph Waldo Emerson",
+  "Coraje no es la ausencia de miedo, es la capacidad de actuar a pesar de él.",
+  "La vida es un 10% lo que te ocurre y un 90% cómo reaccionas a ello. — Charles R. Swindoll",
+  "Si no te gusta dónde estás, muévete. No eres un árbol. — Jim Rohn",
+  "El secreto de avanzar es comenzar. — Mark Twain",
+  "La energía fluye hacia donde va la atención. — Tony Robbins",
+  "Sé el cambio que quieres ver en el mundo. — Mahatma Gandhi",
+  "Mejor hecho que perfecto.",
+  "La única forma de hacer un gran trabajo es amar lo que haces. — Steve Jobs",
+  "El movimiento es la cura para la duda.",
+  "No cuentes tus planes, muestra tus resultados.",
+  "La fuerza no proviene de la capacidad física, sino de una voluntad indomable. — Mahatma Gandhi",
+  "Caerse no es fracasar; fracasar es quedarse donde te caíste.",
+  "Fuel your fire: la energía que buscas ya está dentro de ti.",
+  // Sección 3: Mente, Perspectiva y Consciencia
+  "No vemos las cosas como son, las vemos como somos. — Anaïs Nin",
+  "La vida no examinada no merece ser vivida. — Sócrates",
+  "La felicidad no es algo hecho. Proviene de tus propias acciones. — Dalai Lama",
+  "El hombre rico es aquel cuyos placeres son los más baratos. — Henry David Thoreau",
+  "La simplicidad es la máxima sofisticación. — Leonardo da Vinci",
+  "Todo lo que te irrita de otros te puede llevar a un entendimiento de ti mismo. — Carl Jung",
+  "Conócete a ti mismo. — Sócrates",
+  "La paz viene de adentro. No la busques afuera. — Buda",
+  "Aferrarse a la ira es como beber veneno y esperar que la otra persona muera. — Buda",
+  "La única verdadera sabiduría es saber que no sabes nada. — Sócrates",
+  "El viaje es la recompensa. — Proverbio chino",
+  "No es lo que tienes, es lo que eres.",
+  "La gratitud convierte lo que tenemos en suficiente. — Aesop",
+  "La vida es un eco; si no te gusta lo que recibes, fíjate en lo que emites.",
+  "La preocupación no elimina los problemas de mañana, elimina la paz de hoy.",
+  "La belleza comienza en el momento en que decides ser tú mismo. — Coco Chanel",
+  "Sé amable, porque cada persona que conoces está librando una batalla dura. — Platón",
+  "La vida es muy simple, pero insistimos en hacerla complicada. — Confucio",
+  "El momento presente es todo lo que tienes. — Eckhart Tolle",
+  "Lo que niegas te somete, lo que aceptas te transforma. — Carl Jung",
+  "Tu visión se volverá clara solo cuando puedas mirar en tu propio corazón. — Carl Jung",
+  "El pensamiento es fácil, la acción es difícil, y poner los pensamientos en acción es lo más difícil del mundo. — Johann Wolfgang von Goethe",
+  "La mente es su propio lugar, y en sí misma puede hacer un cielo del infierno o un infierno del cielo. — John Milton",
+  "El hombre que no piensa por sí mismo no piensa en absoluto. — Oscar Wilde",
+  "Cambia tus pensamientos y cambiarás tu mundo. — Norman Vincent Peale",
+  // Sección 4: Resiliencia, Adversidad y Crecimiento
+  "Cae siete veces, levántate ocho. — Proverbio japonés",
+  "Los tiempos difíciles crean hombres fuertes. — Michael Hopf",
+  "El roble más fuerte del bosque no es el que está protegido de la tormenta, es el que se ve obligado a luchar por su existencia. — Napoleon Hill",
+  "En medio de la dificultad reside la oportunidad. — Albert Einstein",
+  "Un mar tranquilo nunca hizo un buen marinero. — Proverbio inglés",
+  "El dolor es inevitable, el sufrimiento es opcional. — Haruki Murakami",
+  "Convierte tus heridas en sabiduría. — Oprah Winfrey",
+  "Lo que no me mata, me hace más fuerte. — Friedrich Nietzsche",
+  "La paciencia no es la capacidad de esperar, sino de mantener una buena actitud mientras esperas. — Joyce Meyer",
+  "No tengas miedo de renunciar a lo bueno para ir a por lo grandioso. — John D. Rockefeller",
+  "El fracaso es solo la oportunidad de comenzar de nuevo de forma más inteligente. — Henry Ford",
+  "La adversidad te presenta a ti mismo.",
+  "Si caminas solo, irás más rápido; si caminas acompañado, llegarás más lejos. — Proverbio africano",
+  "La cima de una montaña es la base de la siguiente.",
+  "Nada en el mundo puede tomar el lugar de la persistencia. — Calvin Coolidge",
+  "El talento es más barato que la sal de mesa. Lo que separa al individuo talentoso del exitoso es un montón de trabajo duro. — Stephen King",
+  "No te compares con nadie en este mundo. Si lo haces, te estás insultando a ti mismo. — Bill Gates",
+  "La única persona que estás destinada a ser es la persona que decidas ser. — Ralph Waldo Emerson",
+  "Cree que puedes y ya estarás a medio camino. — Theodore Roosevelt",
+  "La mejor venganza es el éxito masivo. — Frank Sinatra",
+  "Las cicatrices son pruebas de que el pasado fue real, pero no dictan tu futuro.",
+  "Quien teme a las tormentas nunca aprenderá a navegar en mar abierto.",
+  "Un diamante es solo un trozo de carbón que soportó una presión extraordinaria.",
+  "La noche es más oscura justo antes del amanecer.",
+  "Ninguna presión, ningún diamante. — Thomas Carlyle",
+  // Sección 5: Filosofía del Tiempo y Existencia
+  "Somos polvo de estrellas contemplando las estrellas. — Carl Sagan",
+  "La vida es un sueño del que la muerte nos despierta. — Pedro Calderón de la Barca",
+  "El hombre está condenado a ser libre. — Jean-Paul Sartre",
+  "Al final, solo lamentamos las oportunidades que no tomamos.",
+  "Vive como si fueras a morir mañana. Aprende como si fueras a vivir siempre. — Mahatma Gandhi",
+  "La vida no se mide por las veces que respiras, sino por los momentos que te dejan sin aliento. — Maya Angelou",
+  "Todo fluye, nada permanece. — Heráclito",
+  "Nadie se baña en el río dos veces porque todo cambia en el río y en el que se baña. — Heráclito",
+  "El propósito de la vida es una vida con propósito. — Robert Byrne",
+  "La muerte no es lo opuesto a la vida, es parte de ella. — Haruki Murakami",
+  "El universo no está obligado a tener sentido para ti. — Neil deGrasse Tyson",
+  "Somos lo que hacemos para cambiar lo que somos. — Eduardo Galeano",
+  "La normalidad es un camino pavimentado: es cómodo para caminar, pero no crecen flores en él. — Vincent van Gogh",
+  "Quien mira hacia afuera, sueña; quien mira hacia adentro, despierta. — Carl Jung",
+  "La vida es un lienzo en blanco, y tú eres el pintor.",
+  "No cuentes los años, cuenta los recuerdos.",
+  "La felicidad real es disfrutar el presente sin dependencia ansiosa del futuro. — Séneca",
+  "El tiempo es la divisa de tu vida. Es la única divisa que tienes, y solo tú puedes determinar cómo será gastada. — Carl Sandburg",
+  "La vida es aquello que te va sucediendo mientras te empeñas en hacer otros planes. — John Lennon",
+  "El presente es el único momento en que se puede crear el futuro.",
+  "Malgasté el tiempo, y ahora el tiempo me malgasta a mí. — William Shakespeare",
+  "El tiempo es una ilusión provocada por la sucesión de nuestros estados de conciencia. — Helena Blavatsky",
+  "Breve es la vida, pero la memoria de una vida bien empleada es eterna. — Cicerón",
+  "Lo que dejamos atrás y lo que tenemos por delante son minucias comparado con lo que llevamos dentro. — Ralph Waldo Emerson",
+  "Vivir es lo más raro del mundo. La mayoría de las personas existe, eso es todo. — Oscar Wilde",
+  // Sección 6: Sabiduría Oriental y Saberes Milenarios
+  "El viaje de mil millas comienza con un solo paso. — Lao Tse",
+  "Aquel que pregunta es tonto por cinco minutos; quien no pregunta, es tonto para siempre. — Proverbio chino",
+  "No temas ir despacio, teme solo detenerte. — Proverbio chino",
+  "La paciencia es un árbol de raíz amarga pero de frutos muy dulces. — Proverbio persa",
+  "Un camino sin obstáculos no suele llevar a ninguna parte importante.",
+  "El mejor momento para plantar un árbol fue hace 20 años; el segundo mejor es ahora. — Proverbio chino",
+  "La verdadera riqueza es no necesitar nada.",
+  "Quien conquista a otros es fuerte; quien se conquista a sí mismo es poderoso. — Lao Tse",
+  "Escucha lo que no se dice.",
+  "La tensión es quien crees que debes ser; la relajación es quien eres. — Proverbio chino",
+  "Si cambias la forma en que miras las cosas, las cosas que miras cambian. — Wayne Dyer",
+  "El maestro aparece cuando el alumno está listo. — Proverbio zen",
+  "No hay viento favorable para el barco que no sabe a dónde va. — Séneca",
+  "Bebe el agua, pero recuerda la fuente. — Proverbio chino",
+  "Controla tus emociones o ellas te controlarán a ti.",
+  "La felicidad no es tener mucho, sino disfrutar mucho.",
+  "Un diamante con un defecto es mejor que una piedra común perfecta. — Confucio",
+  "Aprende a pausar, no a renunciar.",
+  "Lo que la oruga llama el fin del mundo, el maestro lo llama mariposa. — Richard Bach",
+  "Las grandes almas tienen voluntades; las débiles solo tienen deseos. — Proverbio chino",
+  "El silencio es una fuente de gran fuerza. — Lao Tse",
+  "Cuando el viento sopla, algunos construyen muros; otros, molinos. — Proverbio chino",
+  "Aquel que sabe que tiene suficiente es rico. — Lao Tse",
+  "La fluidez del agua vence a la dureza de la roca.",
+  "Vacía tu copa para que pueda ser llenada; quédate sin nada para ganarlo todo. — Bruce Lee",
+  // Sección 7: Verdad, Destino y Elección Personal
+  "Tus decisiones, no tus condiciones, determinan tu destino. — Tony Robbins",
+  "La verdad te hará libre, pero primero te hará enojar. — Joe Klaas",
+  "No soy lo que me sucedió, soy lo que elijo ser. — Carl Jung",
+  "El destino no es cuestión de suerte, es cuestión de elección. — William Jennings Bryan",
+  "Quien busca la verdad corre el riesgo de encontrarla. — Isabel Allende",
+  "Ser uno mismo en un mundo que constantemente intenta hacer de ti otra cosa es el mayor logro. — Ralph Waldo Emerson",
+  "Si no te diseñas tu propio plan de vida, es probable que caigas en el plan de otra persona. — Jim Rohn",
+  "La vida no se trata de encontrarte a ti mismo, sino de crearte a ti mismo. — George Bernard Shaw",
+  "Las mejores cosas de la vida están al otro lado del miedo. — Will Smith",
+  "Quien no tiene el valor de asumir riesgos no logrará nada en la vida. — Muhammad Ali",
+  "El carácter es el destino. — Heráclito",
+  "Tu vida cambia en el momento en que tomas una decisión nueva, correcta y comprometida. — Tony Robbins",
+  "La libertad es lo que haces con lo que te han hecho. — Jean-Paul Sartre",
+  "No prometas cuando estés feliz, no respondas cuando estés enojado, no decidas cuando estés triste.",
+  "No puedes controlar los vientos, pero sí puedes ajustar tus velas.",
+  "La mente no es un vaso por llenar, sino un fuego por encender. — Plutarco",
+  "Si no defiendes algo, caerás por cualquier cosa. — Malcolm X",
+  "Aquel que conoce a los demás es sabio; aquel que se conoce a sí mismo está iluminado. — Lao Tse",
+  "Haz lo correcto, no lo fácil.",
+  "El que no lucha por lo que quiere, no tiene derecho a lamentarse por lo que pierde.",
+  "Tus hábitos formarán tu futuro.",
+  "Lo único imposible es aquello que no intentas.",
+  "Nadie puede hacerte sentir inferior sin tu consentimiento. — Eleanor Roosevelt",
+  "Las palabras mueven, pero el ejemplo arrastra.",
+  "No dejes que el ruido de las opiniones de los demás ahogue tu propia voz interior. — Steve Jobs",
+  // Sección 8: Claridad, Enfoque y Maestría
+  "La concentración es el secreto de la fuerza. — Ralph Waldo Emerson",
+  "No temas al hombre que ha practicado 10,000 patadas una vez, teme al hombre que ha practicado una patada 10,000 veces. — Bruce Lee",
+  "La maestría requiere paciencia, enfoque y repetición.",
+  "Deshazte de lo innecesario para dar espacio a lo esencial.",
+  "La claridad precede al éxito.",
+  "La simplicidad no es la ausencia de desorden, sino la presencia de propósito.",
+  "Enfócate en la señal, no en el ruido.",
+  "El arte de ser sabio es el arte de saber qué ignorar. — William James",
+  "No hagas muchas cosas a medias, haz una cosa con excelencia.",
+  "El detalle no es un detalle, lo es todo. — Charles Eames",
+  "La excelencia es hacer cosas comunes de manera extraordinaria. — John W. Gardner",
+  "El dominio de uno mismo es el mayor de los imperios. — Séneca",
+  "Donde va tu enfoque, fluye tu energía.",
+  "La consistencia vence al talento cuando el talento no es consistente.",
+  "La velocidad es irrelevante si vas en la dirección equivocada. — Mahatma Gandhi",
+  "El trabajo duro supera al talento cuando el talento no trabaja duro. — Tim Notke",
+  "Mantenlo simple, pero significativo.",
+  "La calma es un superpoder.",
+  "Estar ocupado no es lo mismo que ser productivo.",
+  "La disciplina es el puente entre tus intenciones y tus logros.",
+  "Haz del hábito tu aliado, no tu maestro.",
+  "La agudeza mental se cultiva en el silencio y la reflexión.",
+  "Cuida los pequeños pasos y la meta se cuidará sola.",
+  "La preparación de hoy determina el impacto de mañana.",
+  "Manteniendo tus sueños despiertos. — SPINTA CAFÉ",
+]
+
 export default function Page() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [cartOpen, setCartOpen] = useState(false)
@@ -58,6 +269,10 @@ export default function Page() {
   const [scrollY, setScrollY] = useState(0)
   const [cartBumping, setCartBumping] = useState(false)
   const [toastMessage, setToastMessage] = useState<string | null>(null)
+  const [phraseInput, setPhraseInput] = useState('')
+  const [currentPhrase, setCurrentPhrase] = useState<string | null>(null)
+  const [phraseUserName, setPhraseUserName] = useState('')
+  const [phraseAnimating, setPhraseAnimating] = useState(false)
 
   useEffect(() => {
     const onScroll = () => setScrollY(window.scrollY)
@@ -107,6 +322,19 @@ export default function Page() {
     if (!comment.trim()) return
     setComments((current) => [comment.trim(), ...current])
     setComment('')
+  }
+
+  const todayLabel = new Date().toLocaleDateString('es-CO', { day: 'numeric', month: 'long', year: 'numeric' })
+
+  const generatePhrase = () => {
+    if (!phraseInput.trim()) return
+    setPhraseAnimating(true)
+    setTimeout(() => {
+      const random = phrases[Math.floor(Math.random() * phrases.length)]
+      setCurrentPhrase(random)
+      setPhraseUserName(phraseInput.trim())
+      setPhraseAnimating(false)
+    }, 350)
   }
 
   return (
@@ -165,6 +393,58 @@ export default function Page() {
           <Image className="hero-product-image" src="/images/spinta-huila.png" alt="Bolsa de café SPINTA Huila" fill priority sizes="(max-width: 760px) 245px, 330px" />
         </div>
         <div className="hero-foot"><span>01 — 03</span><span className="scroll-note"><span className="line" /> Desliza para descubrir</span></div>
+      </section>
+
+      {/* ── GENERADOR DE FRASES ── */}
+      <section id="frases" className="phrase-section">
+        <div className="phrase-inner">
+          <div className="phrase-header">
+            <p className="eyebrow phrase-eyebrow">Frase del día</p>
+            <h2 className="phrase-title">Tu café, <em>tu frase.</em></h2>
+            <p className="phrase-subtitle">Pon tu nombre y recibe la sabiduría que el universo tiene para ti hoy.</p>
+          </div>
+
+          <div className="phrase-form-row">
+            <input
+              className="phrase-name-input"
+              type="text"
+              placeholder="Escribe tu nombre..."
+              value={phraseInput}
+              onChange={(e) => setPhraseInput(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && generatePhrase()}
+              maxLength={40}
+              aria-label="Tu nombre"
+            />
+            <button
+              className="phrase-generate-btn"
+              onClick={generatePhrase}
+              disabled={!phraseInput.trim()}
+            >
+              Generar mi frase ✦
+            </button>
+          </div>
+
+          <div className={`phrase-result-area ${currentPhrase ? 'has-phrase' : ''} ${phraseAnimating ? 'animating' : ''}`}>
+            {currentPhrase ? (
+              <>
+                <p className="phrase-dedication">
+                  {phraseUserName}, tu frase de hoy {todayLabel}
+                </p>
+                <blockquote className="phrase-quote">
+                  &ldquo;{currentPhrase}&rdquo;
+                </blockquote>
+                <button className="phrase-again-btn" onClick={generatePhrase}>
+                  Generar otra ↺
+                </button>
+              </>
+            ) : (
+              <div className="phrase-placeholder">
+                <span className="phrase-placeholder-icon">✦</span>
+                <p>Tu frase aparecerá aquí</p>
+              </div>
+            )}
+          </div>
+        </div>
       </section>
 
       <section id="tienda" className="shop-section section-shell"><div className="section-heading"><div><p className="eyebrow">La tienda</p><h2>Herramientas para<br /><em>hacerlo tuyo.</em></h2></div><p className="section-intro">Objetos honestos para preparar café excepcional, todos los días.</p></div>
