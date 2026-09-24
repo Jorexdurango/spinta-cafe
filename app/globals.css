@@ -771,6 +771,75 @@ button { color: inherit; font: inherit; cursor: pointer; font-family: var(--font
   color: #ffffff;
 }
 
+.phrase-card-footer {
+  margin: 0 0 24px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  width: 100%;
+  max-width: 480px;
+}
+
+.phrase-card-footer span {
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: #a39e94;
+  font-family: var(--font-sans);
+}
+
+.phrase-card-footer a {
+  color: var(--coffee);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+
+.phrase-card-footer a:hover {
+  color: #ff6e40;
+}
+
+.phrase-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.phrase-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+  border-radius: 9999px;
+  padding: 9px 18px;
+  font-size: 11.5px;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.phrase-action-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.phrase-action-btn.primary {
+  background: var(--coffee);
+  border-color: var(--coffee);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(255, 61, 13, 0.3);
+}
+
+.phrase-action-btn.primary:hover {
+  background: #ff542b;
+  border-color: #ff542b;
+  box-shadow: 0 6px 18px rgba(255, 61, 13, 0.45);
+}
+
 @media (max-width: 760px) {
   .phrase-section {
     padding: 60px 20px;
@@ -786,5 +855,15 @@ button { color: inherit; font: inherit; cursor: pointer; font-family: var(--font
   .phrase-quote {
     font-size: 20px;
     line-height: 1.35;
+  }
+  .phrase-actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 8px;
+  }
+  .phrase-action-btn,
+  .phrase-again-btn {
+    width: 100%;
+    justify-content: center;
   }
 }

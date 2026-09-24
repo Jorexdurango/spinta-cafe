@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import Script from 'next/script'
 import { useEffect, useMemo, useState } from 'react'
-import { ArrowDown, ArrowUpRight, Check, Mail, MapPin, Menu, Minus, Plus, Send, ShoppingBag, Trash2, X } from 'lucide-react'
+import { ArrowDown, ArrowUpRight, Check, Download, Mail, MapPin, Menu, Minus, Plus, Send, Share2, ShoppingBag, Trash2, X } from 'lucide-react'
 
 declare global {
   namespace JSX {
@@ -266,6 +266,147 @@ const phrases = [
   "Manteniendo tus sueños despiertos. — SPINTA CAFÉ",
 ]
 
+function renderPhraseCanvas(name: string, date: string, quote: string): HTMLCanvasElement {
+  const canvas = document.createElement('canvas')
+  const width = 1080
+  const height = 1350
+  canvas.width = width
+  canvas.height = height
+  const ctx = canvas.getContext('2d')
+  if (!ctx) return canvas
+
+  // 1. Fondo oscuro cálido
+  ctx.fillStyle = '#141311'
+  ctx.fillRect(0, 0, width, height)
+
+  // 2. Destello radial cálido superior
+  const radial = ctx.createRadialGradient(width / 2, 260, 50, width / 2, 260, 620)
+  radial.addColorStop(0, 'rgba(255, 61, 13, 0.18)')
+  radial.addColorStop(1, 'rgba(20, 19, 17, 0)')
+  ctx.fillStyle = radial
+  ctx.fillRect(0, 0, width, height)
+
+  // 3. Marco exterior elegante
+  const margin = 56
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)'
+  ctx.lineWidth = 2
+  ctx.beginPath()
+  if (typeof ctx.roundRect === 'function') {
+    ctx.roundRect(margin, margin, width - margin * 2, height - margin * 2, 32)
+  } else {
+    ctx.rect(margin, margin, width - margin * 2, height - margin * 2)
+  }
+  ctx.stroke()
+
+  // 4. Esquinas decorativas en color naranja SPINTA
+  ctx.strokeStyle = '#ff3d0d'
+  ctx.lineWidth = 3
+  const cl = 28
+  ctx.beginPath()
+  ctx.moveTo(margin + 20, margin + 20 + cl)
+  ctx.lineTo(margin + 20, margin + 20)
+  ctx.lineTo(margin + 20 + cl, margin + 20)
+  ctx.stroke()
+
+  ctx.beginPath()
+  ctx.moveTo(width - margin - 20 - cl, margin + 20)
+  ctx.lineTo(width - margin - 20, margin + 20)
+  ctx.lineTo(width - margin - 20, margin + 20 + cl)
+  ctx.stroke()
+
+  ctx.beginPath()
+  ctx.moveTo(margin + 20, height - margin - 20 - cl)
+  ctx.lineTo(margin + 20, height - margin - 20)
+  ctx.lineTo(margin + 20 + cl, height - margin - 20)
+  ctx.stroke()
+
+  ctx.beginPath()
+  ctx.moveTo(width - margin - 20 - cl, height - margin - 20)
+  ctx.lineTo(width - margin - 20, height - margin - 20)
+  ctx.lineTo(width - margin - 20, height - margin - 20 - cl)
+  ctx.stroke()
+
+  // 5. Encabezado de marca
+  ctx.textAlign = 'center'
+  ctx.font = 'italic 800 38px sans-serif'
+  ctx.fillStyle = '#ffffff'
+  ctx.fillText('SPINTA', width / 2 - 12, margin + 115)
+  ctx.fillStyle = '#ff3d0d'
+  ctx.fillText('·', width / 2 + 60, margin + 115)
+
+  ctx.font = '600 15px sans-serif'
+  ctx.fillStyle = '#9c978f'
+  ctx.fillText('C A F É   D E   E S P E C I A L I D A D', width / 2, margin + 155)
+
+  // Línea divisoria superior
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)'
+  ctx.lineWidth = 1
+  ctx.beginPath()
+  ctx.moveTo(margin + 90, margin + 195)
+  ctx.lineTo(width - margin - 90, margin + 195)
+  ctx.stroke()
+
+  // 6. Dedicatoria
+  ctx.font = 'italic bold 28px sans-serif'
+  ctx.fillStyle = '#ff3d0d'
+  ctx.fillText(`${name.toUpperCase()}, TU FRASE DE HOY`, width / 2, margin + 265)
+
+  ctx.font = '400 20px sans-serif'
+  ctx.fillStyle = '#948f86'
+  ctx.fillText(date, width / 2, margin + 305)
+
+  // 7. Texto de la frase
+  const quoteMaxWidth = width - margin * 2 - 140
+  let fontSize = 48
+  if (quote.length > 140) fontSize = 40
+  if (quote.length > 220) fontSize = 34
+  const lineHeight = fontSize * 1.45
+
+  ctx.font = `italic 400 ${fontSize}px Georgia, "Times New Roman", serif`
+  ctx.fillStyle = '#fffdf9'
+
+  const words = `“${quote}”`.split(' ')
+  const lines: string[] = []
+  let cur = words[0] || ''
+  for (let i = 1; i < words.length; i++) {
+    const w = words[i]
+    if (ctx.measureText(cur + ' ' + w).width <= quoteMaxWidth) {
+      cur += ' ' + w
+    } else {
+      lines.push(cur)
+      cur = w
+    }
+  }
+  if (cur) lines.push(cur)
+
+  const totalTextHeight = lines.length * lineHeight
+  const availableCenter = (margin + 340 + (height - margin - 220)) / 2
+  let startY = availableCenter - totalTextHeight / 2 + fontSize * 0.75
+
+  for (const line of lines) {
+    ctx.fillText(line, width / 2, startY)
+    startY += lineHeight
+  }
+
+  // 8. Línea divisoria inferior
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)'
+  ctx.beginPath()
+  ctx.moveTo(margin + 90, height - margin - 150)
+  ctx.lineTo(width - margin - 90, height - margin - 150)
+  ctx.stroke()
+
+  // 9. Pie de página
+  ctx.font = '600 24px sans-serif'
+  ctx.fillStyle = '#e2ded5'
+  ctx.fillText('SPINTA CAFÉ — Síguenos en @spintacafe', width / 2, height - margin - 95)
+
+  ctx.font = '400 17px sans-serif'
+  ctx.fillStyle = '#7a756d'
+  ctx.fillText('spintacafe.com', width / 2, height - margin - 60)
+
+  return canvas
+}
+
 export default function Page() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [cartOpen, setCartOpen] = useState(false)
@@ -345,6 +486,56 @@ export default function Page() {
       setPhraseUserName(phraseInput.trim())
       setPhraseAnimating(false)
     }, 350)
+  }
+
+  const handleDownload = () => {
+    if (!currentPhrase || !phraseUserName) return
+    const canvas = renderPhraseCanvas(phraseUserName, todayLabel, currentPhrase)
+    canvas.toBlob((blob) => {
+      if (!blob) return
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      const cleanName = phraseUserName.toLowerCase().trim().replace(/[^a-z0-9]/gi, '-')
+      a.href = url
+      a.download = `spinta-frase-${cleanName || 'hoy'}.png`
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+      URL.revokeObjectURL(url)
+      setToastMessage('¡Imagen guardada!')
+    }, 'image/png')
+  }
+
+  const handleShare = async () => {
+    if (!currentPhrase || !phraseUserName) return
+    const canvas = renderPhraseCanvas(phraseUserName, todayLabel, currentPhrase)
+    canvas.toBlob(async (blob) => {
+      if (!blob) return
+      const cleanName = phraseUserName.toLowerCase().trim().replace(/[^a-z0-9]/gi, '-')
+      const file = new File([blob], `spinta-frase-${cleanName || 'hoy'}.png`, { type: 'image/png' })
+      if (typeof navigator !== 'undefined' && navigator.canShare && navigator.canShare({ files: [file] })) {
+        try {
+          await navigator.share({
+            files: [file],
+            title: `Frase de ${phraseUserName} — SPINTA CAFÉ`,
+            text: `"${currentPhrase}" — SPINTA CAFÉ (@spintacafe)`,
+          })
+          return
+        } catch {
+          // Usuario canceló compartir
+        }
+      }
+      // Si el navegador no soporta compartir archivos directamente, se descarga la imagen:
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = `spinta-frase-${cleanName || 'hoy'}.png`
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+      URL.revokeObjectURL(url)
+      setToastMessage('¡Imagen guardada para compartir!')
+    }, 'image/png')
   }
 
   return (
@@ -443,9 +634,20 @@ export default function Page() {
                 <blockquote className="phrase-quote">
                   &ldquo;{currentPhrase}&rdquo;
                 </blockquote>
-                <button className="phrase-again-btn" onClick={generatePhrase}>
-                  Generar otra ↺
-                </button>
+                <div className="phrase-card-footer">
+                  <span>SPINTA CAFÉ — Síguenos en <a href="https://instagram.com/spintacafe" target="_blank" rel="noreferrer">@spintacafe</a></span>
+                </div>
+                <div className="phrase-actions">
+                  <button className="phrase-action-btn primary" onClick={handleDownload} title="Guardar imagen en tu dispositivo">
+                    <Download size={14} /> Guardar imagen
+                  </button>
+                  <button className="phrase-action-btn" onClick={handleShare} title="Compartir en Instagram, WhatsApp o redes">
+                    <Share2 size={14} /> Compartir
+                  </button>
+                  <button className="phrase-again-btn" onClick={generatePhrase} title="Generar otra frase">
+                    Generar otra ↺
+                  </button>
+                </div>
               </>
             ) : (
               <div className="phrase-placeholder">
