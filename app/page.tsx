@@ -269,7 +269,7 @@ const phrases = [
 function renderPhraseCanvas(name: string, date: string, quote: string): HTMLCanvasElement {
   const canvas = document.createElement('canvas')
   const width = 1080
-  const height = 1350
+  const height = 1920
   canvas.width = width
   canvas.height = height
   const ctx = canvas.getContext('2d')
@@ -279,88 +279,108 @@ function renderPhraseCanvas(name: string, date: string, quote: string): HTMLCanv
   ctx.fillStyle = '#141311'
   ctx.fillRect(0, 0, width, height)
 
-  // 2. Destello radial cálido superior
-  const radial = ctx.createRadialGradient(width / 2, 260, 50, width / 2, 260, 620)
-  radial.addColorStop(0, 'rgba(255, 61, 13, 0.18)')
-  radial.addColorStop(1, 'rgba(20, 19, 17, 0)')
-  ctx.fillStyle = radial
+  // 2. Destellos radiales cálidos (arriba y abajo)
+  const radialTop = ctx.createRadialGradient(width / 2, 400, 50, width / 2, 400, 700)
+  radialTop.addColorStop(0, 'rgba(255, 61, 13, 0.20)')
+  radialTop.addColorStop(1, 'rgba(20, 19, 17, 0)')
+  ctx.fillStyle = radialTop
   ctx.fillRect(0, 0, width, height)
 
-  // 3. Marco exterior elegante
-  const margin = 56
-  ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)'
+  const radialBottom = ctx.createRadialGradient(width / 2, 1600, 50, width / 2, 1600, 500)
+  radialBottom.addColorStop(0, 'rgba(255, 61, 13, 0.08)')
+  radialBottom.addColorStop(1, 'rgba(20, 19, 17, 0)')
+  ctx.fillStyle = radialBottom
+  ctx.fillRect(0, 0, width, height)
+
+  // 3. Marco interior con márgenes seguros para Historias de Instagram
+  const cardX = 70
+  const cardY = 170
+  const cardW = width - cardX * 2 // 940px
+  const cardH = height - cardY * 2 // 1580px
+
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.14)'
   ctx.lineWidth = 2
   ctx.beginPath()
   if (typeof ctx.roundRect === 'function') {
-    ctx.roundRect(margin, margin, width - margin * 2, height - margin * 2, 32)
+    ctx.roundRect(cardX, cardY, cardW, cardH, 36)
   } else {
-    ctx.rect(margin, margin, width - margin * 2, height - margin * 2)
+    ctx.rect(cardX, cardY, cardW, cardH)
   }
   ctx.stroke()
 
-  // 4. Esquinas decorativas en color naranja SPINTA
+  // 4. Esquinas decorativas de acento naranja SPINTA
   ctx.strokeStyle = '#ff3d0d'
   ctx.lineWidth = 3
-  const cl = 28
+  const cl = 32
+
+  // Superior izquierda
   ctx.beginPath()
-  ctx.moveTo(margin + 20, margin + 20 + cl)
-  ctx.lineTo(margin + 20, margin + 20)
-  ctx.lineTo(margin + 20 + cl, margin + 20)
+  ctx.moveTo(cardX + 24, cardY + 24 + cl)
+  ctx.lineTo(cardX + 24, cardY + 24)
+  ctx.lineTo(cardX + 24 + cl, cardY + 24)
   ctx.stroke()
 
+  // Superior derecha
   ctx.beginPath()
-  ctx.moveTo(width - margin - 20 - cl, margin + 20)
-  ctx.lineTo(width - margin - 20, margin + 20)
-  ctx.lineTo(width - margin - 20, margin + 20 + cl)
+  ctx.moveTo(cardX + cardW - 24 - cl, cardY + 24)
+  ctx.lineTo(cardX + cardW - 24, cardY + 24)
+  ctx.lineTo(cardX + cardW - 24, cardY + 24 + cl)
   ctx.stroke()
 
+  // Inferior izquierda
   ctx.beginPath()
-  ctx.moveTo(margin + 20, height - margin - 20 - cl)
-  ctx.lineTo(margin + 20, height - margin - 20)
-  ctx.lineTo(margin + 20 + cl, height - margin - 20)
+  ctx.moveTo(cardX + 24, cardY + cardH - 24 - cl)
+  ctx.lineTo(cardX + 24, cardY + cardH - 24)
+  ctx.lineTo(cardX + 24 + cl, cardY + cardH - 24)
   ctx.stroke()
 
+  // Inferior derecha
   ctx.beginPath()
-  ctx.moveTo(width - margin - 20 - cl, height - margin - 20)
-  ctx.lineTo(width - margin - 20, height - margin - 20)
-  ctx.lineTo(width - margin - 20, height - margin - 20 - cl)
+  ctx.moveTo(cardX + cardW - 24 - cl, cardY + cardH - 24)
+  ctx.lineTo(cardX + cardW - 24, cardY + cardH - 24)
+  ctx.lineTo(cardX + cardW - 24, cardY + cardH - 24 - cl)
   ctx.stroke()
 
-  // 5. Encabezado de marca
+  // 5. Encabezado de marca SPINTA
   ctx.textAlign = 'center'
-  ctx.font = 'italic 800 38px sans-serif'
+  ctx.font = 'italic 800 46px sans-serif'
   ctx.fillStyle = '#ffffff'
-  ctx.fillText('SPINTA', width / 2 - 12, margin + 115)
+  ctx.fillText('SPINTA', width / 2 - 14, cardY + 130)
   ctx.fillStyle = '#ff3d0d'
-  ctx.fillText('·', width / 2 + 60, margin + 115)
+  ctx.fillText('·', width / 2 + 70, cardY + 130)
 
-  ctx.font = '600 15px sans-serif'
+  ctx.font = '600 16px sans-serif'
   ctx.fillStyle = '#9c978f'
-  ctx.fillText('C A F É   D E   E S P E C I A L I D A D', width / 2, margin + 155)
+  ctx.fillText('C A F É   D E   E S P E C I A L I D A D', width / 2, cardY + 175)
 
   // Línea divisoria superior
   ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)'
   ctx.lineWidth = 1
   ctx.beginPath()
-  ctx.moveTo(margin + 90, margin + 195)
-  ctx.lineTo(width - margin - 90, margin + 195)
+  ctx.moveTo(cardX + 80, cardY + 220)
+  ctx.lineTo(cardX + cardW - 80, cardY + 220)
   ctx.stroke()
 
-  // 6. Dedicatoria
-  ctx.font = 'italic bold 28px sans-serif'
+  // 6. Dedicatoria con nombre y fecha
+  ctx.font = 'italic bold 32px sans-serif'
   ctx.fillStyle = '#ff3d0d'
-  ctx.fillText(`${name.toUpperCase()}, TU FRASE DE HOY`, width / 2, margin + 265)
+  ctx.fillText(`${name.toUpperCase()}, TU FRASE DE HOY`, width / 2, cardY + 310)
 
-  ctx.font = '400 20px sans-serif'
+  ctx.font = '400 22px sans-serif'
   ctx.fillStyle = '#948f86'
-  ctx.fillText(date, width / 2, margin + 305)
+  ctx.fillText(date, width / 2, cardY + 355)
 
-  // 7. Texto de la frase
-  const quoteMaxWidth = width - margin * 2 - 140
-  let fontSize = 48
-  if (quote.length > 140) fontSize = 40
-  if (quote.length > 220) fontSize = 34
-  const lineHeight = fontSize * 1.45
+  // Pequeño detalle estelar
+  ctx.font = '20px sans-serif'
+  ctx.fillStyle = 'rgba(255, 61, 13, 0.7)'
+  ctx.fillText('✦', width / 2, cardY + 410)
+
+  // 7. Texto de la frase centrado
+  const quoteMaxWidth = cardW - 140
+  let fontSize = 52
+  if (quote.length > 130) fontSize = 44
+  if (quote.length > 210) fontSize = 38
+  const lineHeight = fontSize * 1.5
 
   ctx.font = `italic 400 ${fontSize}px Georgia, "Times New Roman", serif`
   ctx.fillStyle = '#fffdf9'
@@ -380,7 +400,9 @@ function renderPhraseCanvas(name: string, date: string, quote: string): HTMLCanv
   if (cur) lines.push(cur)
 
   const totalTextHeight = lines.length * lineHeight
-  const availableCenter = (margin + 340 + (height - margin - 220)) / 2
+  const quoteAreaTop = cardY + 460
+  const quoteAreaBottom = cardY + cardH - 240
+  const availableCenter = (quoteAreaTop + quoteAreaBottom) / 2
   let startY = availableCenter - totalTextHeight / 2 + fontSize * 0.75
 
   for (const line of lines) {
@@ -391,18 +413,18 @@ function renderPhraseCanvas(name: string, date: string, quote: string): HTMLCanv
   // 8. Línea divisoria inferior
   ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)'
   ctx.beginPath()
-  ctx.moveTo(margin + 90, height - margin - 150)
-  ctx.lineTo(width - margin - 90, height - margin - 150)
+  ctx.moveTo(cardX + 80, cardY + cardH - 180)
+  ctx.lineTo(cardX + cardW - 80, cardY + cardH - 180)
   ctx.stroke()
 
-  // 9. Pie de página
-  ctx.font = '600 24px sans-serif'
+  // 9. Pie de página de la tarjeta
+  ctx.font = '600 26px sans-serif'
   ctx.fillStyle = '#e2ded5'
-  ctx.fillText('SPINTA CAFÉ — Síguenos en @spintacafe', width / 2, height - margin - 95)
+  ctx.fillText('SPINTA CAFÉ — Síguenos en @spintacafe', width / 2, cardY + cardH - 115)
 
-  ctx.font = '400 17px sans-serif'
+  ctx.font = '400 18px sans-serif'
   ctx.fillStyle = '#7a756d'
-  ctx.fillText('spintacafe.com', width / 2, height - margin - 60)
+  ctx.fillText('spintacafe.com', width / 2, cardY + cardH - 72)
 
   return canvas
 }
