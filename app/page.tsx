@@ -418,13 +418,11 @@ function renderPhraseCanvas(name: string, date: string, quote: string): HTMLCanv
   ctx.stroke()
 
   // 9. Pie de página de la tarjeta
-  ctx.font = '600 26px sans-serif'
-  ctx.fillStyle = '#e2ded5'
-  ctx.fillText('SPINTA CAFÉ — Síguenos en @spintacafe', width / 2, cardY + cardH - 115)
-
-  ctx.font = '400 18px sans-serif'
-  ctx.fillStyle = '#7a756d'
-  ctx.fillText('spintacafe.com', width / 2, cardY + cardH - 72)
+  ctx.font = 'italic 800 32px sans-serif'
+  ctx.fillStyle = '#ffffff'
+  ctx.fillText('SPINTA CAFÉ', width / 2 - 10, cardY + cardH - 95)
+  ctx.fillStyle = '#ff3d0d'
+  ctx.fillText('·', width / 2 + 105, cardY + cardH - 95)
 
   return canvas
 }
@@ -657,7 +655,15 @@ export default function Page() {
                   &ldquo;{currentPhrase}&rdquo;
                 </blockquote>
                 <div className="phrase-card-footer">
-                  <span>SPINTA CAFÉ — Síguenos en <a href="https://instagram.com/spintacafe" target="_blank" rel="noreferrer">@spintacafe</a></span>
+                  <a
+                    href="https://instagram.com/spintacafe"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="phrase-brand-link"
+                    title="Visitar @spintacafe en Instagram"
+                  >
+                    SPINTA CAFÉ<span>·</span>
+                  </a>
                 </div>
                 <div className="phrase-actions">
                   <button className="phrase-action-btn primary" onClick={handleDownload} title="Guardar imagen en tu dispositivo">

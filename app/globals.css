@@ -772,30 +772,36 @@ button { color: inherit; font: inherit; cursor: pointer; font-family: var(--font
 }
 
 .phrase-card-footer {
-  margin: 0 0 24px;
-  padding-top: 18px;
+  margin: 0 0 22px;
+  padding-top: 16px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   width: 100%;
   max-width: 480px;
+  display: flex;
+  justify-content: center;
 }
 
-.phrase-card-footer span {
-  font-size: 12px;
-  letter-spacing: 0.04em;
-  color: #a39e94;
-  font-family: var(--font-sans);
+.phrase-brand-link {
+  font-family: var(--font-logo);
+  font-size: 15px;
+  font-weight: 800;
+  font-style: italic;
+  letter-spacing: -0.05em;
+  color: #dfdbd3;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.2s ease;
+  text-decoration: none;
 }
 
-.phrase-card-footer a {
+.phrase-brand-link span {
   color: var(--coffee);
-  font-weight: 600;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  transition: color 0.2s ease;
+  margin-left: 2px;
 }
 
-.phrase-card-footer a:hover {
-  color: #ff6e40;
+.phrase-brand-link:hover {
+  color: #ffffff;
+  transform: scale(1.05);
 }
 
 .phrase-actions {
