@@ -741,10 +741,12 @@ export default function Page() {
       <section id="tienda" className="shop-section section-shell">
         <div className="section-heading">
           <div>
-            <div className="rotation-badge">
-              <span className="rotation-icon">🔄</span> Cosechas frescas con rotación mensual de orígenes y productores.
+            <div className="eyebrow-row">
+              <p className="eyebrow">La tienda</p>
+              <div className="rotation-badge">
+                <span className="rotation-icon">🔄</span> Cosechas frescas con rotación mensual de orígenes y productores.
+              </div>
             </div>
-            <p className="eyebrow">La tienda</p>
             <h2>Herramientas para<br /><em>hacerlo tuyo.</em></h2>
           </div>
           <p className="section-intro">Objetos honestos para preparar café excepcional, todos los días.</p>
