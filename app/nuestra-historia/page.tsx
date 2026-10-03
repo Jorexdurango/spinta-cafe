@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowLeft, ArrowUpRight } from 'lucide-react'
+import Logo from '@/components/Logo'
 
 export default function NuestraHistoriaPage() {
   return (
@@ -10,7 +11,7 @@ export default function NuestraHistoriaPage() {
       {/* Header */}
       <header className="site-header">
         <Link className="brand" href="/" aria-label="Volver a SPINTA Café">
-          SPINTA<span>·</span>
+          <Logo variant="naranja" width={140} height={36} />
         </Link>
         <Link className="back-link" href="/">
           <ArrowLeft size={15} /> Volver al inicio
@@ -88,7 +89,7 @@ export default function NuestraHistoriaPage() {
 
       {/* Footer */}
       <footer>
-        <div className="footer-brand">SPINTA<span>·</span></div>
+        <div className="footer-brand"><Logo variant="negro" width={135} height={34} /></div>
         <p>Café de especialidad para días extraordinarios.</p>
         <div className="footer-links">
           <Link href="/#tienda">Tienda</Link>

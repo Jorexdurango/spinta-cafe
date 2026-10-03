@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { ArrowLeft, ArrowUpRight } from 'lucide-react'
 import { useParams } from 'next/navigation'
+import Logo from '@/components/Logo'
 
 const articles = {
   'que-hace-especial-a-un-cafe-de-especialidad': {
@@ -43,7 +44,9 @@ export default function ArticlePage() {
   return (
     <main className="article-page">
       <header className="site-header">
-        <Link className="brand" href="/#inicio" aria-label="Volver a SPINTA">SPINTA<span>·</span></Link>
+        <Link className="brand" href="/#inicio" aria-label="Volver a SPINTA">
+          <Logo variant="naranja" width={140} height={36} />
+        </Link>
         <Link className="back-link" href="/#academia"><ArrowLeft size={15} /> Volver a la Academia</Link>
       </header>
       <article className="article-reader">
@@ -57,7 +60,7 @@ export default function ArticlePage() {
         <Link className="text-link" href="/#tienda">Explorar cafés SPINTA <ArrowUpRight size={16} /></Link>
       </article>
       <footer>
-        <div className="footer-brand">SPINTA<span>·</span></div>
+        <div className="footer-brand"><Logo variant="negro" width={135} height={34} /></div>
         <p>Café de especialidad para días extraordinarios.</p>
         <small>© 2026 SPINTA CAFÉ · Hecho en Colombia</small>
       </footer>

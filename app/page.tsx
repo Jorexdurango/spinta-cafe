@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Script from 'next/script'
 import { useEffect, useMemo, useState } from 'react'
 import { ArrowDown, ArrowUpRight, Check, Download, Mail, MapPin, Menu, Minus, Plus, Send, Share2, ShoppingBag, Trash2, X } from 'lucide-react'
+import Logo from '@/components/Logo'
 
 declare global {
   namespace JSX {
@@ -618,7 +619,9 @@ export default function Page() {
         </div>
       )}
       <header className="site-header">
-        <a className="brand" href="#inicio" aria-label="SPINTA Café inicio">SPINTA<span>·</span></a>
+        <a className="brand" href="#inicio" aria-label="SPINTA Café inicio">
+          <Logo variant="naranja" width={140} height={36} />
+        </a>
         <nav className="desktop-nav" aria-label="Navegación principal">
           <a href="#tienda">Tienda</a><a href="/nuestra-historia">Nuestra historia</a><a href="#contacto">Contacto</a>
         </nav>
@@ -925,7 +928,7 @@ export default function Page() {
         </div>
       </section>
 
-      <footer><div className="footer-brand">SPINTA<span>·</span></div><p>Café de especialidad para días extraordinarios.</p><div className="footer-links"><a href="#tienda">Tienda</a><a href="/nuestra-historia">Nuestra historia</a><a href="#contacto">Contacto</a><a href="https://instagram.com/spintacafe" target="_blank" rel="noreferrer">@spintacafe</a></div><small>© 2026 SPINTA CAFÉ · Hecho en Colombia</small></footer>
+      <footer><div className="footer-brand"><Logo variant="negro" width={135} height={34} /></div><p>Café de especialidad para días extraordinarios.</p><div className="footer-links"><a href="#tienda">Tienda</a><a href="/nuestra-historia">Nuestra historia</a><a href="#contacto">Contacto</a><a href="https://instagram.com/spintacafe" target="_blank" rel="noreferrer">@spintacafe</a></div><small>© 2026 SPINTA CAFÉ · Hecho en Colombia</small></footer>
     </main>
   )
 }
