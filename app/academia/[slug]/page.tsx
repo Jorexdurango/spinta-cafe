@@ -60,7 +60,7 @@ export default function ArticlePage() {
         <Link className="text-link" href="/#tienda">Explorar cafés SPINTA <ArrowUpRight size={16} /></Link>
       </article>
       <footer>
-        <div className="footer-brand"><Logo variant="negro" width={135} height={34} /></div>
+        <div className="footer-brand"><Logo variant="naranja" width={140} height={36} /></div>
         <p>Café de especialidad para días extraordinarios.</p>
         <small>© 2026 SPINTA CAFÉ · Hecho en Colombia</small>
       </footer>

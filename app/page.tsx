@@ -623,7 +623,7 @@ export default function Page() {
           <Logo variant="naranja" width={140} height={36} />
         </a>
         <nav className="desktop-nav" aria-label="Navegación principal">
-          <a href="#tienda">Tienda</a><a href="/nuestra-historia">Nuestra historia</a><a href="#contacto">Contacto</a>
+          <a href="/tienda">Tienda</a><a href="/nuestra-historia">Nuestra historia</a><a href="#contacto">Contacto</a>
         </nav>
         <div className="header-actions">
           <button
@@ -639,7 +639,7 @@ export default function Page() {
           </button>
         </div>
       </header>
-      {menuOpen && <nav className="mobile-menu"><a href="#tienda" onClick={() => setMenuOpen(false)}>Tienda</a><a href="/nuestra-historia" onClick={() => setMenuOpen(false)}>Nuestra historia</a><a href="#contacto" onClick={() => setMenuOpen(false)}>Contacto</a></nav>}
+      {menuOpen && <nav className="mobile-menu"><a href="/tienda" onClick={() => setMenuOpen(false)}>Tienda</a><a href="/nuestra-historia" onClick={() => setMenuOpen(false)}>Nuestra historia</a><a href="#contacto" onClick={() => setMenuOpen(false)}>Contacto</a></nav>}
       {cartOpen && <><button className="drawer-backdrop" aria-label="Cerrar carrito" onClick={() => setCartOpen(false)} /><aside className="cart-drawer" aria-label="Carrito de compras"><div className="cart-header"><div><p className="eyebrow">Tu selección</p><h2>Carrito <span>{cartCount}</span></h2></div><button className="close-cart" onClick={() => setCartOpen(false)} aria-label="Cerrar carrito"><X size={20} /></button></div>{cart.length === 0 ? <div className="cart-empty"><ShoppingBag size={30} /><p>Tu carrito está esperando algo especial.</p><a href="#tienda" onClick={() => setCartOpen(false)}>Explorar tienda</a></div> : <><div className="cart-lines">{cart.map((item) => <div className="cart-line" key={item.id}><div><strong>{item.name}</strong><small>{formatCOP(item.price)} c/u</small><div className="quantity"><button onClick={() => changeQuantity(item.id, -1)} aria-label={`Disminuir ${item.name}`}><Minus size={13} /></button><span>{item.quantity}</span><button onClick={() => changeQuantity(item.id, 1)} aria-label={`Aumentar ${item.name}`}><Plus size={13} /></button><button className="remove-line" onClick={() => removeFromCart(item.id)} aria-label={`Eliminar ${item.name}`}><Trash2 size={14} /></button></div></div><strong>{formatCOP(item.price * item.quantity)}</strong></div>)}</div><div className="cart-summary"><p className="cart-notice">Tu pedido se finaliza y confirma directamente a través de WhatsApp con atención personalizada.</p><label className="cart-field">Código de descuento<input value={discountCode} onChange={(event) => setDiscountCode(event.target.value)} placeholder="ZORROCAFETERO" /></label><div className="cart-totals"><div><span>Subtotal</span><strong>{formatCOP(cartSubtotal)}</strong></div>{discount > 0 && <div><span>Descuento (ZORROCAFETERO -10%)</span><strong>−{formatCOP(discount)}</strong></div>}<div className="final-total"><span>Total final</span><strong>{formatCOP(cartTotal)}</strong></div></div><label className="cart-field">Nombre completo<input required value={customerName} onChange={(event) => setCustomerName(event.target.value)} placeholder="Tu nombre" /></label><label className="cart-field">Dirección de entrega<input required value={customerAddress} onChange={(event) => setCustomerAddress(event.target.value)} placeholder="Medellín / Área Metropolitana" /></label><button className="dark-button cart-checkout" disabled={!customerName.trim() || !customerAddress.trim()} onClick={whatsapp}>Finalizar pedido por WhatsApp <ArrowUpRight size={16} /></button></div></>}</aside></>}
 
       <section id="inicio" className="hero-section">
@@ -928,7 +928,7 @@ export default function Page() {
         </div>
       </section>
 
-      <footer><div className="footer-brand"><Logo variant="negro" width={135} height={34} /></div><p>Café de especialidad para días extraordinarios.</p><div className="footer-links"><a href="#tienda">Tienda</a><a href="/nuestra-historia">Nuestra historia</a><a href="#contacto">Contacto</a><a href="https://instagram.com/spintacafe" target="_blank" rel="noreferrer">@spintacafe</a></div><small>© 2026 SPINTA CAFÉ · Hecho en Colombia</small></footer>
+      <footer><div className="footer-brand"><Logo variant="naranja" width={140} height={36} /></div><p>Café de especialidad para días extraordinarios.</p><div className="footer-links"><a href="/tienda">Tienda</a><a href="/nuestra-historia">Nuestra historia</a><a href="#contacto">Contacto</a><a href="https://instagram.com/spintacafe" target="_blank" rel="noreferrer">@spintacafe</a></div><small>© 2026 SPINTA CAFÉ · Hecho en Colombia</small></footer>
     </main>
   )
 }

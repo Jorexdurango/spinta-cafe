@@ -2,6 +2,7 @@ import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import localFont from 'next/font/local'
 import { Inter } from 'next/font/google'
+import { CartProvider } from '@/context/CartContext'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
@@ -33,5 +34,14 @@ export const metadata: Metadata = {
 export const viewport: Viewport = { colorScheme: 'light', themeColor: '#fbfbf9', userScalable: false }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="es" className="bg-background"><body className={`${inter.variable} ${proximaNova.variable} ${proximaNovaExtraBold.variable} ${proximaNovaBold.variable} antialiased`}>{children}{process.env.NODE_ENV === 'production' && <Analytics />}</body></html>
+  return (
+    <html lang="es" className="bg-background">
+      <body className={`${inter.variable} ${proximaNova.variable} ${proximaNovaExtraBold.variable} ${proximaNovaBold.variable} antialiased`}>
+        <CartProvider>
+          {children}
+        </CartProvider>
+        {process.env.NODE_ENV === 'production' && <Analytics />}
+      </body>
+    </html>
+  )
 }

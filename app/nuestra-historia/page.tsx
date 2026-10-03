@@ -89,10 +89,10 @@ export default function NuestraHistoriaPage() {
 
       {/* Footer */}
       <footer>
-        <div className="footer-brand"><Logo variant="negro" width={135} height={34} /></div>
+        <div className="footer-brand"><Logo variant="naranja" width={140} height={36} /></div>
         <p>Café de especialidad para días extraordinarios.</p>
         <div className="footer-links">
-          <Link href="/#tienda">Tienda</Link>
+          <Link href="/tienda">Tienda</Link>
           <Link href="/nuestra-historia">Nuestra historia</Link>
           <Link href="/#contacto">Contacto</Link>
           <a href="https://instagram.com/spintacafe" target="_blank" rel="noreferrer">@spintacafe</a>
